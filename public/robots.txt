@@ -1,3 +1,11 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Disallow: /terms
+Disallow: /privacy
+Disallow: /about
+Disallow: /login
+Disallow: /register
+Disallow: /account
+
+Allow: /
+
+Sitemap: https://www.tiktokteenthots.com/sitemap.xml

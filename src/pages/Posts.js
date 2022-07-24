@@ -7,6 +7,7 @@ import {
     query, orderBy, serverTimestamp, limit,
     onSnapshot, getDocs, where
 } from "firebase/firestore";
+import {Helmet} from "react-helmet";
 import {getPosts, selectPosts} from "../redux/posts/postsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
@@ -81,6 +82,14 @@ function Post() {
     if(allPosts){
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+
+                <Helmet>
+                    <title>Teen creepshots & teen twerk videos. Twerk teen videos compilations.</title>
+                    <meta
+                        name="description"
+                        content="Teen twerk videos compilations. Free teen creepshots from around the internet."
+                    />
+                </Helmet>
 
                 <Grid item sm={11} lg={10} xs={11}>
                     {quinielasList}

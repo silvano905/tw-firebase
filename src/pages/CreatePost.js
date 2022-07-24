@@ -74,7 +74,9 @@ function CreatePost() {
     }
     const dispatch = useDispatch()
 
-
+    if(user.uid!=='JuWneKYgAFfQGy2ZkGwR0xz45XK2'){
+        return <Navigate to='/'/>
+    }
     return (
         <Fragment>
 
@@ -106,20 +108,6 @@ function CreatePost() {
                                     </Grid>
 
                                     <Grid item sm={11} lg={7} xs={11}>
-                                        {/*<FormControl>*/}
-                                        {/*    <TextField*/}
-                                        {/*        fullWidth*/}
-                                        {/*        variant="outlined"*/}
-                                        {/*        id="standard-basic"*/}
-                                        {/*        label="Folder"*/}
-                                        {/*        name="folder"*/}
-                                        {/*        value={folder}*/}
-                                        {/*        onChange={onChange}*/}
-                                        {/*        required*/}
-                                        {/*        style={{marginTop: 10}}*/}
-                                        {/*    />*/}
-                                        {/*</FormControl>*/}
-
                                         <FormControl style={{width: 200}}>
                                             <InputLabel id="demo-simple-select-label">Folder</InputLabel>
                                             <Select

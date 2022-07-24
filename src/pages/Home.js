@@ -8,6 +8,7 @@ import {
     query, orderBy, serverTimestamp, limit,
     onSnapshot, getDocs, where
 } from "firebase/firestore";
+import {Helmet} from "react-helmet";
 import {getCompilations, getSingle, selectSingle, selectCompilations} from "../redux/home/homeSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
@@ -80,6 +81,13 @@ function Home() {
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
 
+                <Helmet>
+                    <title>Teen twerk videos compilations | Tiktokteenthots watch the best teen twerking videos</title>
+                    <meta
+                        name="description"
+                        content="Teen twerking videos from Instagram and Youtube. Top teen twerk videos for free."
+                    />
+                </Helmet>
 
                 <Grid item sm={11} lg={10} xs={11}>
                     <HomeCompilationsSlider posts={allCompilations} currentUser={currentUser}/>

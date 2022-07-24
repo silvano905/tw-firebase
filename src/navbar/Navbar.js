@@ -96,20 +96,11 @@ const Navbar = () => {
                             </Link>
                         </Typography>
                     </MenuItem>
-                    {user.uid==='j9jYo6uxBFOaXDbqvKTLFOTd5z82'&&
-                        <MenuItem onClick={handleMenuClose}>
-                            <Typography variant="h6" gutterBottom>
-                                <Link to='/update' style={{color: 'blue', textDecoration: 'none'}}>
-                                    Update scores
-                                </Link>
-                            </Typography>
-                        </MenuItem>
-                    }
-                    {user.uid==='j9jYo6uxBFOaXDbqvKTLFOTd5z82'&&
+                    {user.uid==='JuWneKYgAFfQGy2ZkGwR0xz45XK2'&&
                         <MenuItem onClick={handleMenuClose}>
                             <Typography variant="h6" gutterBottom>
                                 <Link to='/create' style={{color: 'blue', textDecoration: 'none'}}>
-                                    create jornada
+                                    create
                                 </Link>
                             </Typography>
                         </MenuItem>
@@ -120,18 +111,17 @@ const Navbar = () => {
                     <MenuItem onClick={handleMenuClose}>
                         <Typography variant="h6" gutterBottom>
                             <Link to='/login' style={{color: 'blue', textDecoration: 'none'}}>
-                                Entrar a mi cuenta
+                                Login
                             </Link>
                         </Typography>
                     </MenuItem>
                     <MenuItem onClick={handleMenuClose}>
                         <Typography variant="h6" gutterBottom>
                             <Link to='/register' style={{color: 'blue', textDecoration: 'none'}}>
-                                Crear cuenta
+                                Register
                             </Link>
                         </Typography>
                     </MenuItem>
-                    {}
                 </>
 
             }
@@ -163,7 +153,7 @@ const Navbar = () => {
                             component="div"
                             style={{fontFamily: 'Cinzel, serif'}}
                         >
-                            Twerkzity
+                            Teen Thots
                         </Typography>
                     </Link>
                     <Box sx={{ flexGrow: 1 }} />

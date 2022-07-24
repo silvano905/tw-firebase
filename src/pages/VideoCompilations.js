@@ -7,6 +7,7 @@ import {
     query, orderBy, serverTimestamp, limit,
     onSnapshot, getDocs, where
 } from "firebase/firestore";
+import {Helmet} from "react-helmet";
 import {getCompilations, getCompilation, selectCompilations} from "../redux/compilations/compilationsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
@@ -80,6 +81,14 @@ function VideoCompilations() {
     if(allPosts){
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+
+                <Helmet>
+                    <title>Tiktok Thots - Triller Thots - Instagram Thots | Teen Tik Tok Thots Compilations.</title>
+                    <meta
+                        name="description"
+                        content="Tiktok thots & Triller thots compilations 2021. Watch top teen thots videos for free."
+                    />
+                </Helmet>
 
                 <Grid item sm={11} lg={10} xs={11}>
                     {quinielasList}
