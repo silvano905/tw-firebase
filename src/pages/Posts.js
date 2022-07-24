@@ -33,6 +33,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ReactGA from "react-ga4";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -57,6 +58,8 @@ function Post() {
     }
 
     useEffect(() => {
+        ReactGA.initialize('G-PH7BM56H1X')
+        ReactGA.send(window.location.pathname + window.location.search)
         if(!allPosts){
             let p = collection(db, 'posts')
             let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'single'))
