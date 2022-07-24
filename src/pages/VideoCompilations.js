@@ -56,13 +56,15 @@ function VideoCompilations() {
     }
 
     useEffect(() => {
-        let p = collection(db, 'posts')
-        let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'compilations'))
-        const querySnapshot = getDocs(order).then(x=>{
-            dispatch(getCompilations(
-                x.docs.map(doc => ({data: doc.data(), id: doc.id}))
-            ))
-        })
+        if(!allPosts){
+            let p = collection(db, 'posts')
+            let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'compilations'))
+            const querySnapshot = getDocs(order).then(x=>{
+                dispatch(getCompilations(
+                    x.docs.map(doc => ({data: doc.data(), id: doc.id}))
+                ))
+            })
+        }
 
     }, []);
 

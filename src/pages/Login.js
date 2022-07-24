@@ -84,16 +84,16 @@ function Login() {
     const formDialog = (
         <div>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Requerir nueva clave para tu cuenta</DialogTitle>
+                <DialogTitle>New password request</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Escribe tu correo electrónico para recibir instrucciones sobre cómo crear una nueva clave.
+                        Enter your email to receive a link to create a new password for your account.
                     </DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="Correo electrónico"
+                        label="Email"
                         type="email"
                         name='email'
                         onChange={e => setEmail(e.target.value)}
@@ -102,8 +102,8 @@ function Login() {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancelar</Button>
-                    <Button onClick={resetPasswordLink}>Enviar</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={resetPasswordLink}>Send</Button>
                 </DialogActions>
             </Dialog>
         </div>
@@ -119,11 +119,11 @@ function Login() {
                     <Grid item sm={11} lg={7} xs={11}>
                         <Item elevation={4}>
                             <Typography variant="h5" gutterBottom style={{color: 'black'}}>
-                                Introduce tu correo electrónico y contraseña
+                                Login to your account
                             </Typography>
                             <Typography variant="h6" gutterBottom style={{marginBottom: 10, color: '#22223b'}}>
-                                No tienes una cuenta?
-                                <Link to='/register' style={{textDecoration: 'none', color: 'blue'}}> Crear cuenta
+                                not registered?
+                                <Link to='/register' style={{textDecoration: 'none', color: 'blue'}}> Create account
                                 </Link>
                             </Typography>
 
@@ -134,7 +134,7 @@ function Login() {
                                             <TextField
                                                 variant="outlined"
                                                 id="standard-basic"
-                                                label="Correo electrónico"
+                                                label="Email"
                                                 name="email"
                                                 onChange={e => setEmail(e.target.value)}
                                                 required
@@ -144,10 +144,10 @@ function Login() {
 
                                     <Grid item sm={11} lg={7} xs={11}>
                                         <FormControl>
-                                            <InputLabel htmlFor="outlined-adornment-password">Contraseña</InputLabel>
+                                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                             <OutlinedInput
                                                 id="outlined-adornment-password"
-                                                label="Contraseña"
+                                                label="Password"
                                                 type={values.showPassword ? 'text' : 'password'}
                                                 autoComplete="current-password"
                                                 name="password"
@@ -159,12 +159,12 @@ function Login() {
                                     </Grid>
 
                                     <Grid item sm={11} lg={7} xs={11}>
-                                        <Button style={{margin: 10}} type="submit" variant="contained" color="primary">Entrar</Button>
+                                        <Button style={{margin: 10}} type="submit" variant="contained" color="primary">Login</Button>
                                     </Grid>
                                 </Grid>
                             </form>
 
-                            <Button onClick={()=> setOpen(!open)} style={{margin: 10}} type="submit" variant="outlined" color="error">Olvidaste tu clave?</Button>
+                            <Button onClick={()=> setOpen(!open)} style={{margin: 10}} type="submit" variant="outlined" color="error">Forgot your password?</Button>
 
                             {open?
                                 <>{formDialog}</>

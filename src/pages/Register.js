@@ -84,11 +84,11 @@ function Register() {
                     <Grid item sm={11} lg={7} xs={11}>
                         <Item elevation={4}>
                             <Typography variant="h5" gutterBottom style={{color: 'black', marginTop: 10}}>
-                                Necesitas una cuenta para comprar quinielas
+                                You need an account to like videos
                             </Typography>
                             <Typography  variant="h6" gutterBottom style={{marginBottom: 10, color: '#22223b'}}>
-                                Ya tienes una cuenta?
-                                <Link to='/login' style={{textDecoration: 'none', color: 'blue'}}> Entrar a mi cuenta
+                                Already registered?
+                                <Link to='/login' style={{textDecoration: 'none', color: 'blue'}}> Login
                                 </Link>
                             </Typography>
 
@@ -100,7 +100,7 @@ function Register() {
                                                 fullWidth
                                                 variant="outlined"
                                                 id="standard-basic"
-                                                label="Nombre del usuario"
+                                                label="username"
                                                 name="name"
                                                 inputProps={{ maxLength: 20 }}
                                                 value={name}
@@ -117,7 +117,7 @@ function Register() {
                                                 fullWidth
                                                 variant="outlined"
                                                 id="standard-basic3"
-                                                label="Correo electrónico"
+                                                label="email"
                                                 name="email"
                                                 value={email}
                                                 onChange={onChange}
@@ -130,10 +130,10 @@ function Register() {
 
                                     <Grid item sm={7} lg={7} xs={9}>
                                         <FormControl>
-                                            <InputLabel htmlFor="outlined-adornment-password">Contraseña</InputLabel>
+                                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                                             <OutlinedInput
                                                 id="outlined-adornment-password"
-                                                label="Contraseña"
+                                                label="Password"
                                                 type={values.showPassword ? 'text' : 'password'}
                                                 autoComplete="current-password"
                                                 name="password"
@@ -146,9 +146,9 @@ function Register() {
 
                                     <Grid item sm={9} lg={8} xs={9}>
                                         {disableButton?
-                                            <Button style={{margin: 10}} type="submit" variant="contained" color="primary" disabled>Registrarme</Button>
+                                            <Button style={{margin: 10}} type="submit" variant="contained" color="primary" disabled>Register</Button>
                                             :
-                                            <Button style={{margin: 10}} type="submit" variant="contained" color="primary">Registrarme</Button>
+                                            <Button style={{margin: 10}} type="submit" variant="contained" color="primary">Register</Button>
                                         }
                                     </Grid>
 

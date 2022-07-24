@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
     marginTop: 15,
     color: theme.palette.text.secondary,
     marginBottom: 2,
-    background: '#fdfffc'
+    background: 'linear-gradient(45deg, #f8f9fa 30%, #e3e6ea 90%)'
 }));
 const HomeCompilationsSlider = ({posts, currentUser}) => {
 

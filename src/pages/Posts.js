@@ -57,13 +57,16 @@ function Post() {
     }
 
     useEffect(() => {
-        let p = collection(db, 'posts')
-        let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'single'))
-        const querySnapshot = getDocs(order).then(x=>{
-            dispatch(getPosts(
-                x.docs.map(doc => ({data: doc.data(), id: doc.id}))
-            ))
-        })
+        if(!allPosts){
+            let p = collection(db, 'posts')
+            let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'single'))
+            const querySnapshot = getDocs(order).then(x=>{
+                dispatch(getPosts(
+                    x.docs.map(doc => ({data: doc.data(), id: doc.id}))
+                ))
+            })
+        }
+
 
     }, []);
 
