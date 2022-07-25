@@ -1,12 +1,11 @@
 import React, {Fragment, useEffect, useState, useRef} from 'react';
 import {useNavigate} from "react-router-dom"
 import { useSelector,useDispatch } from 'react-redux';
-import {selectCart} from "../../redux/cart/cartSlice";
-import {selectUser} from "../../redux/user/userSlice";
+import {selectUser, getUserData} from "../../redux/user/userSlice";
 import {collection, getDocs, orderBy, query, where, updateDoc, doc} from "firebase/firestore";
 import {db} from '../../config-firebase/firebase'
 import Grid from "@mui/material/Grid";
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -22,7 +21,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Paypal = () => {
     const user = useSelector(selectUser)
-    const myCart = useSelector(selectCart)
     const dispatch = useDispatch();
     const [error, setError] = useState(null);
     const paypalRef = useRef();
@@ -49,18 +47,17 @@ const Paypal = () => {
                 },
                 onApprove: async (data, actions) => {
                     const order = await actions.order.capture();
-                    //after the payment was successful make all the quinielas in the cart paid = true
-                    for (let i = 0; i < myCart.length; i++) {
-                        let docRef = doc(db, 'quinielas', myCart[i].id)
-                        updateDoc(docRef,{
-                            paid: true
-                        }).then()
-                    }
+                    //after the payment was successful make user premium
+                    updateDoc(doc(db, 'usersData', user.uid),{
+                        premium: true
+                    }).then(()=>{
+                        dispatch(getUserData({premium: true}))
+                    })
 
                     //TODO
                     //add alerts and redirects
-                    dispatch(setAlert('Tu pago fue aceptado', 'success'))
-                    navigate('/myQuinielas')
+                    dispatch(setAlert('Payment was successful', 'success'))
+                    navigate('/')
                     setTimeout(()=>{dispatch(removeAlert())}, 6000)
                 },
                 onError: err => {

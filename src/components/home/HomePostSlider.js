@@ -12,6 +12,8 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import VideoComp from "../video/VideoComp";
 import {Waypoint} from "react-waypoint";
 import {styled} from "@mui/material/styles";
+import {useSelector} from "react-redux";
+import {selectUserData} from "../../redux/user/userSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -24,7 +26,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 }));
 const HomePostSlider = ({posts, currentUser}) => {
-
+    const userData = useSelector(selectUserData)
     const [visible, setVisible] = useState(2)
     const showMoreItems = () =>{
         setVisible(prevState => prevState + 1)
@@ -37,7 +39,7 @@ const HomePostSlider = ({posts, currentUser}) => {
             quinielasList = posts.slice(0, 2).map(item => {
                 return (
                     <>
-                        <VideoComp post={item} currentUser={currentUser}/>
+                        <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={showMoreItems}/>
                     </>
                 )

@@ -10,6 +10,10 @@ import './Register.css'
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import Switch from '@mui/material/Switch';
+import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -160,19 +164,12 @@ function CreatePost() {
                                     </Grid>
 
                                     <Grid item sm={7} lg={7} xs={9}>
-                                        <FormControl>
-                                            <TextField
-                                                fullWidth
-                                                variant="outlined"
-                                                id="standard-basic3"
-                                                label="premium"
-                                                name="premium"
-                                                value={premium}
-                                                onChange={onChange}
-                                                required
-                                                style={{marginTop: 10}}
-                                            />
-                                        </FormControl>
+                                        <FormControlLabel
+                                            control={
+                                                <Switch checked={premium} onChange={()=>setFormData({ ...formData, premium: !premium })} name="premium" />
+                                            }
+                                            label="Premium video?"
+                                        />
                                     </Grid>
                                     <Grid item sm={9} lg={8} xs={9}>
                                         <Button style={{margin: 10}} onClick={onChangeVideoIds} variant="contained" color="primary">add another video id</Button>

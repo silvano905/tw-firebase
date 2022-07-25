@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Stream } from "@cloudflare/stream-react";
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import HomePostSlider from "../components/home/HomePostSlider";
 import HomeCompilationsSlider from "../components/home/HomeCompilationsSlider";
 import {
@@ -59,10 +59,11 @@ function Home() {
     const showMoreItems = () =>{
         setVisible(prevState => prevState + 1)
     }
+    let location = useLocation()
 
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
-        ReactGA.send(window.location.pathname + window.location.search)
+        ReactGA.send({ hitType: "pageview", page: location.pathname })
         let p = collection(db, 'posts')
         let orderSingle = query(p, orderBy('timestamp', 'desc'), limit(4), where("section", "==", 'single'))
         const querySnapshotSingle = getDocs(orderSingle).then(x=>{

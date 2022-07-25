@@ -56,7 +56,7 @@ function Login() {
                 const docRef = doc(db, "usersData", userAuth.user.uid);
                 const docSnap = getDoc(docRef).then((x)=>{
                     dispatch(getUserData({
-                        phone: x.data().phoneNumber
+                        premium: x.data().premium
                     }))
                 })
             }).catch(error =>alert(error.message))

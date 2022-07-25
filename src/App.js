@@ -11,6 +11,7 @@ import {selectUser} from "./redux/user/userSlice";
 import CreatePost from "./pages/CreatePost";
 import VideoCompilations from "./pages/VideoCompilations";
 import Posts from "./pages/Posts";
+import Cart from "./pages/Cart";
 function App() {
   const userAuth = useSelector(selectUser)
 
@@ -39,6 +40,7 @@ function App() {
           </Route>
           <Route path='/' element={<Home />} />
             <Route path='/teen-creepshots' element={<Posts />} />
+            <Route path='/premium' element={<Cart />} />
             <Route path='/tiktok-thots' element={<VideoCompilations />} />
             <Route path='/create' element={<CreatePost />} />
             <Route path='/login' element={<Login />} />

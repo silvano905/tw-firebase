@@ -57,6 +57,12 @@ function Register() {
         setDisableButton(true)
         createUserWithEmailAndPassword(auth, email, password)
             .then(cred => {
+                let userDataRef = doc(db, "usersData", cred.user.uid);
+                setDoc(userDataRef,{
+                    premium: false
+                }).then(()=>{
+                    dispatch(getUserData({premium: false}))
+                })
                 setDisableButton(false)
                 updateProfile(cred.user, {displayName: name}).then(()=>{
                     dispatch(login({

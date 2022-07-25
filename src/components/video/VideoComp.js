@@ -17,6 +17,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid";
+import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
@@ -39,7 +40,7 @@ const Item = styled(Paper)(({ theme }) => ({
     background: '#fdfffc'
 }));
 
-const VideoComp = ({post, currentUser}) => {
+const VideoComp = ({post, currentUser, userData}) => {
 
     const likePost = (e) => {
         e.preventDefault()
@@ -69,72 +70,98 @@ const VideoComp = ({post, currentUser}) => {
 
     const increaseViews = (e) => {
         e.preventDefault()
-        if(currentUser){
-            let refDoc = doc(db, 'posts', post.id)
-            updateDoc(refDoc, {
-                views: increment(1),
-                likedByUser: arrayUnion(currentUser.uid)
-            }).then()
-        }
+        let refDoc = doc(db, 'posts', post.id)
+        updateDoc(refDoc, {
+            views: increment(1)
+        }).then()
 
     }
 
-    if(post) {
-        return (
-            <Item elevation={4} key={post.id}>
-                {post.data.videoIds.length>0?
-                    <>
-                        <Typography variant="h6" gutterBottom>
-                            video compilation {index+1}/{post.data.videoIds.length}
-                        </Typography>
+    return (
+        <Item elevation={4} key={post.id}>
+            {post.data.videoIds.length>0?
+                <>
+                    <Typography variant="h6" gutterBottom>
+                        video compilation {index+1}/{post.data.videoIds.length}
+                    </Typography>
 
+                    {userData&&userData.premium?
                         <Stream controls src={post.data.videoIds[index]} onPlay={increaseViews}/>
 
-                    </>
-                    :
-                    <Stream controls src={post.data.videoId} onPlay={increaseViews}/>
-                }
-
-                <div style={{display: "flex", marginTop: 5, marginBottom: 5, flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                    {currentUser&&post.data.likedByUser.includes(currentUser.uid)?
-                        <Stack direction="row" spacing={2} style={{margin: 5}}>
-                            <Button variant="outlined" startIcon={<ThumbUpIcon style={{color: 'blue'}}/>}>
-                                4
-                            </Button>
-                        </Stack>
                         :
-                        <Stack direction="row" spacing={2} style={{margin: 5}}>
-                            <Button onClick={likePost} variant="outlined" startIcon={<ThumbUpIcon style={{color: 'black'}}/>}>
-                                4
-                            </Button>
-                        </Stack>
+                        <div style={{position: "relative"}}>
+                            <Stream src={post.data.videoIds[index]} onPlay={increaseViews}/>
+                            <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
+                                position:"absolute",
+                                textAlign: "center",
+                                fontSize: 100,
+                                top: '50%',
+                                color: "white",
+                                width: "100%"}}>play
+                            </PlayCircleFilledWhiteIcon>
+                        </div>
+
                     }
 
-                    <Button variant="outlined">
-                        views {post.data.views}
-                    </Button>
+                </>
+                :
+                <>
+                    {userData&&userData.premium?
+                        <Stream controls src={post.data.videoId} onPlay={increaseViews}/>
 
-                </div>
+                        :
+                        <div style={{position: "relative"}}>
+                            <Stream src={post.data.videoId} onPlay={increaseViews}/>
+                            <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
+                                position:"absolute",
+                                textAlign: "center",
+                                fontSize: 100,
+                                top: '50%',
+                                color: "white",
+                                width: "100%"}}>play
+                            </PlayCircleFilledWhiteIcon>
+                        </div>
 
-                {post.data.videoIds.length>0&&
-                    <div style={{display: "flex", marginTop: 5, marginBottom: 5, flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                        <Button style={{margin: 3}} size='small' onClick={loadPreviousVideo} variant="outlined" startIcon={<ArrowBackIosNewIcon style={{color: 'blue'}}/>}>
-                            previous video
+                    }
+                </>
+
+            }
+
+            <div style={{display: "flex", marginTop: 5, marginBottom: 5, flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
+                {currentUser&&post.data.likedByUser.includes(currentUser.uid)?
+                    <Stack direction="row" spacing={2} style={{margin: 5}}>
+                        <Button variant="outlined" startIcon={<ThumbUpIcon style={{color: 'blue'}}/>}>
+                            4
                         </Button>
-
-                        <Button style={{margin: 3}} size='small' onClick={loadNextVideo} variant="outlined" startIcon={<ArrowForwardIosIcon style={{color: 'blue'}}/>}>
-                            next video
+                    </Stack>
+                    :
+                    <Stack direction="row" spacing={2} style={{margin: 5}}>
+                        <Button onClick={likePost} variant="outlined" startIcon={<ThumbUpIcon style={{color: 'black'}}/>}>
+                            4
                         </Button>
-                    </div>
+                    </Stack>
                 }
 
-            </Item>
-        )
-    }else {
-        return (
-            <div>none</div>
-        )
-    }
+                <Button variant="outlined">
+                    views {post.data.views}
+                </Button>
+
+            </div>
+
+            {post.data.videoIds.length>0&&
+                <div style={{display: "flex", marginTop: 5, marginBottom: 5, flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
+                    <Button style={{margin: 3}} size='small' onClick={loadPreviousVideo} variant="outlined" startIcon={<ArrowBackIosNewIcon style={{color: 'blue'}}/>}>
+                        previous video
+                    </Button>
+
+                    <Button style={{margin: 3}} size='small' onClick={loadNextVideo} variant="outlined" startIcon={<ArrowForwardIosIcon style={{color: 'blue'}}/>}>
+                        next video
+                    </Button>
+                </div>
+            }
+
+        </Item>
+    )
 
 };
 

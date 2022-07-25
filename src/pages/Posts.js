@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Stream } from "@cloudflare/stream-react";
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import VideoComp from "../components/video/VideoComp";
 import {
     collection, addDoc,
@@ -14,7 +14,7 @@ import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
 import Grid from "@mui/material/Grid";
 import {useDispatch, useSelector} from "react-redux";
-import {selectUser} from "../redux/user/userSlice";
+import {selectUser, selectUserData} from "../redux/user/userSlice";
 import {styled} from "@mui/material/styles";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -50,25 +50,25 @@ function Post() {
     const allPosts = useSelector(selectPosts)
     const [filterQuinielas, setFilterQuinielas] = useState('correct');
     const currentUser = useSelector(selectUser)
+    const userData = useSelector(selectUserData)
 
 
     const [visible, setVisible] = useState(2)
     const showMoreItems = () =>{
         setVisible(prevState => prevState + 1)
     }
+    let location = useLocation()
 
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
-        ReactGA.send(window.location.pathname + window.location.search)
-        if(!allPosts){
-            let p = collection(db, 'posts')
-            let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'single'))
-            const querySnapshot = getDocs(order).then(x=>{
-                dispatch(getPosts(
-                    x.docs.map(doc => ({data: doc.data(), id: doc.id}))
-                ))
-            })
-        }
+        ReactGA.send({ hitType: "pageview", page: location.pathname })
+        let p = collection(db, 'posts')
+        let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'single'))
+        const querySnapshot = getDocs(order).then(x=>{
+            dispatch(getPosts(
+                x.docs.map(doc => ({data: doc.data(), id: doc.id}))
+            ))
+        })
 
 
     }, []);
@@ -78,7 +78,7 @@ function Post() {
         quinielasList = allPosts.slice(0, visible).map(item => {
             return (
                 <>
-                    <VideoComp post={item} currentUser={currentUser}/>
+                    <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                     <Waypoint onEnter={showMoreItems}/>
                 </>
             )
