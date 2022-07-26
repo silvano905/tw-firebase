@@ -85,43 +85,49 @@ const VideoComp = ({post, currentUser, userData}) => {
                         video compilation {index+1}/{post.data.videoIds.length}
                     </Typography>
 
-                    {userData&&userData.premium?
+                    {userData&&userData.premium&&post.data.videoIds[index].premium?
                         <Stream controls src={post.data.videoIds[index]} onPlay={increaseViews}/>
 
                         :
-                        <div style={{position: "relative"}}>
-                            <Stream src={post.data.videoIds[index]} onPlay={increaseViews}/>
-                            <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
-                                position:"absolute",
-                                textAlign: "center",
-                                fontSize: 100,
-                                top: '50%',
-                                color: "white",
-                                width: "100%"}}>play
-                            </PlayCircleFilledWhiteIcon>
-                        </div>
+                        !post.data.videoIds[index].premium?
+                            <Stream controls src={post.data.videoIds[index]} onPlay={increaseViews}/>
+                            :
+                            <div style={{position: "relative"}}>
+                                <Stream src={post.data.videoIds[index]} onPlay={increaseViews}/>
+                                <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
+                                    position:"absolute",
+                                    textAlign: "center",
+                                    fontSize: 100,
+                                    top: '50%',
+                                    color: "white",
+                                    width: "100%"}}>play
+                                </PlayCircleFilledWhiteIcon>
+                            </div>
+
 
                     }
 
                 </>
                 :
                 <>
-                    {userData&&userData.premium?
+                    {userData&&userData.premium&&post.data.premium?
                         <Stream controls src={post.data.videoId} onPlay={increaseViews}/>
 
                         :
-                        <div style={{position: "relative"}}>
-                            <Stream src={post.data.videoId} onPlay={increaseViews}/>
-                            <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
-                                position:"absolute",
-                                textAlign: "center",
-                                fontSize: 100,
-                                top: '50%',
-                                color: "white",
-                                width: "100%"}}>play
-                            </PlayCircleFilledWhiteIcon>
-                        </div>
-
+                        !post.data.premium?
+                            <Stream controls src={post.data.videoId} onPlay={increaseViews}/>
+                            :
+                            <div style={{position: "relative"}}>
+                                <Stream src={post.data.videoId} onPlay={increaseViews}/>
+                                <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
+                                    position:"absolute",
+                                    textAlign: "center",
+                                    fontSize: 100,
+                                    top: '50%',
+                                    color: "white",
+                                    width: "100%"}}>play
+                                </PlayCircleFilledWhiteIcon>
+                            </div>
                     }
                 </>
 
