@@ -40,38 +40,48 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     marginTop: 15,
     color: theme.palette.text.secondary,
-    marginBottom: 10,
-    background: '#fdfffc',
-    boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
+    background: '#fdfffc'
 }));
 
 function Post() {
     const dispatch = useDispatch()
     const allPosts = useSelector(selectPosts)
-    const [filterQuinielas, setFilterQuinielas] = useState('correct');
     const currentUser = useSelector(selectUser)
     const userData = useSelector(selectUserData)
 
+    const [filterPosts, setFilterPosts] = useState('timestamp')
 
-    const [visible, setVisible] = useState(2)
-    const showMoreItems = () =>{
-        setVisible(prevState => prevState + 1)
-    }
+
+    const [visible, setVisible] = useState(1)
+
     let location = useLocation()
 
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
         ReactGA.send({ hitType: "pageview", page: location.pathname })
-        let p = collection(db, 'posts')
-        let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'single'))
-        const querySnapshot = getDocs(order).then(x=>{
-            dispatch(getPosts(
-                x.docs.map(doc => ({data: doc.data(), id: doc.id}))
-            ))
-        })
+        // if(allPosts.length<=0){
+            let p = collection(db, 'posts')
+            let order = query(p, orderBy(filterPosts, 'desc'), where("section", "==", 'single'))
+            const querySnapshot = getDocs(order).then(x=>{
+                dispatch(getPosts(
+                    x.docs.map(doc => ({data: doc.data(), id: doc.id}))
+                ))
+            })
+        // }
 
+    }, [filterPosts,]);
 
-    }, []);
+    //to remember the position of the last video shown
+    // let elementPosition = 0
+    // if(allPosts&&allPosts.length>0){
+    //     elementPosition = allPosts.findIndex(object => {
+    //         return object.id === lastVideoShownId;
+    //     });
+    //     if(elementPosition>=visible){
+    //         setVisible(prevState => prevState + elementPosition)
+    //     }
+    // }
+    //end
 
     let quinielasList;
     if(allPosts&&allPosts.length>0){
@@ -79,7 +89,7 @@ function Post() {
             return (
                 <>
                     <VideoComp post={item} currentUser={currentUser} userData={userData}/>
-                    <Waypoint onEnter={showMoreItems}/>
+                    <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
                 </>
             )
         })
@@ -96,6 +106,19 @@ function Post() {
                         content="Teen twerk videos compilations. Free teen creepshots from around the internet."
                     />
                 </Helmet>
+
+                <Grid item sm={11} lg={10} xs={11}>
+                    <Item elevation={4}>
+                        <Typography variant="h6" gutterBottom style={{color: "blue", marginBottom: -3}}>
+                            filter posts by:
+                        </Typography>
+                        <ButtonGroup size='small'>
+                            <Button variant={filterPosts==='timestamp'?'contained':'outlined'} onClick={()=>setFilterPosts('timestamp')}>Newest</Button>
+                            <Button variant={filterPosts==='likes'?'contained':'outlined'} onClick={()=>setFilterPosts('likes')}>likes</Button>
+                            <Button variant={filterPosts==='repliesCount'?'contained':'outlined'} onClick={()=>setFilterPosts('repliesCount')}>views</Button>
+                        </ButtonGroup>
+                    </Item>
+                </Grid>
 
                 <Grid item sm={11} lg={10} xs={11}>
                     {quinielasList}

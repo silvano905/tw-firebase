@@ -43,6 +43,7 @@ function CreatePost() {
     const [formData, setFormData] = useState({
         title: '',
         views: 0,
+        likes:0,
         videoId: '',
         premium: false,
         folder: ''
@@ -56,7 +57,7 @@ function CreatePost() {
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const { title, premium, videoId, views, folder } = formData;
+    const { title, premium, videoId, views, folder, likes } = formData;
     const [disableButton, setDisableButton] = useState(false)
 
     const register = (e) => {
@@ -69,7 +70,7 @@ function CreatePost() {
             premium: premium,
             section: videoIds.length>0?'compilations':'single',
             watched: [],
-            likes: [],
+            likes: likes,
             folder: folder,
             likedByUser: [],
             timestamp: serverTimestamp()
@@ -146,7 +147,6 @@ function CreatePost() {
                                         </FormControl>
                                     </Grid>
 
-
                                     <Grid item sm={7} lg={7} xs={9}>
                                         <FormControl>
                                             <TextField
@@ -156,6 +156,22 @@ function CreatePost() {
                                                 label="Views"
                                                 name="views"
                                                 value={views}
+                                                onChange={onChange}
+                                                required
+                                                style={{marginTop: 10}}
+                                            />
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid item sm={7} lg={7} xs={9}>
+                                        <FormControl>
+                                            <TextField
+                                                fullWidth
+                                                variant="outlined"
+                                                id="standard-basic3"
+                                                label="Likes"
+                                                name="likes"
+                                                value={likes}
                                                 onChange={onChange}
                                                 required
                                                 style={{marginTop: 10}}

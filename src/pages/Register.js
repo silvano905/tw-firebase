@@ -78,6 +78,12 @@ function Register() {
     }
     const dispatch = useDispatch()
 
+    const [show, setShow] = useState({
+        showInfo: false,
+    });
+    const { showInfo } = show;
+
+
     if(user){
         return <Navigate to='/'/>
     }
@@ -92,6 +98,19 @@ function Register() {
                             <Typography variant="h5" gutterBottom style={{color: 'black', marginTop: 10}}>
                                 You need an account to like videos
                             </Typography>
+
+                            <div>
+                                <Button onClick={() => setShow({ ...show, showInfo: !showInfo })} variant="contained" style={{margin: 10}}>Anonymous account?</Button>
+                                {show.showInfo ?
+                                    <Typography variant="body1" gutterBottom style={{color: 'black', marginTop: 10}}>
+                                        You can open an anonymous account by providing a fake email. Disclaimer, if
+                                        you don't provide a real email you won't be able to reset your password if you forget it. Make
+                                        sure you will remember your password and fake email to login.
+                                    </Typography>
+                                    : null
+                                }
+                            </div>
+
                             <Typography  variant="h6" gutterBottom style={{marginBottom: 10, color: '#22223b'}}>
                                 Already registered?
                                 <Link to='/login' style={{textDecoration: 'none', color: 'blue'}}> Login

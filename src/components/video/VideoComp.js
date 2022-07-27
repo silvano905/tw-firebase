@@ -137,13 +137,13 @@ const VideoComp = ({post, currentUser, userData}) => {
                 {currentUser&&post.data.likedByUser.includes(currentUser.uid)?
                     <Stack direction="row" spacing={2} style={{margin: 5}}>
                         <Button variant="outlined" startIcon={<ThumbUpIcon style={{color: 'blue'}}/>}>
-                            4
+                            {post.data.likes}
                         </Button>
                     </Stack>
                     :
                     <Stack direction="row" spacing={2} style={{margin: 5}}>
                         <Button onClick={likePost} variant="outlined" startIcon={<ThumbUpIcon style={{color: 'black'}}/>}>
-                            4
+                            {post.data.likes}
                         </Button>
                     </Stack>
                 }
@@ -156,11 +156,11 @@ const VideoComp = ({post, currentUser, userData}) => {
 
             {post.data.videoIds.length>0&&
                 <div style={{display: "flex", marginTop: 5, marginBottom: 5, flexWrap: "wrap", justifyContent: "center", alignItems: "center"}}>
-                    <Button style={{margin: 3}} size='small' onClick={loadPreviousVideo} variant="outlined" startIcon={<ArrowBackIosNewIcon style={{color: 'blue'}}/>}>
+                    <Button style={{margin: 3}} size='small' onClick={loadPreviousVideo} disabled={index === 0} variant="outlined" startIcon={<ArrowBackIosNewIcon style={{color: 'blue'}}/>}>
                         previous video
                     </Button>
 
-                    <Button style={{margin: 3}} size='small' onClick={loadNextVideo} variant="outlined" startIcon={<ArrowForwardIosIcon style={{color: 'blue'}}/>}>
+                    <Button style={{margin: 3}} size='small' onClick={loadNextVideo} disabled={index >= post.data.videoIds.length-1} variant="outlined" startIcon={<ArrowForwardIosIcon style={{color: 'blue'}}/>}>
                         next video
                     </Button>
                 </div>

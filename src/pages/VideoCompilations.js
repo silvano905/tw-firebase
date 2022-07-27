@@ -40,7 +40,6 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     marginTop: 15,
     color: theme.palette.text.secondary,
-    marginBottom: 10,
     background: '#fdfffc',
     boxShadow: '0 3px 5px 2px rgba(11, 82, 91, .5)',
 }));
@@ -51,18 +50,20 @@ function VideoCompilations() {
     const currentUser = useSelector(selectUser)
     const userData = useSelector(selectUserData)
 
-    const [visible, setVisible] = useState(2)
+    const [visible, setVisible] = useState(1)
     const showMoreItems = () =>{
         setVisible(prevState => prevState + 1)
     }
     let location = useLocation()
+
+    const [filterPosts, setFilterPosts] = useState('timestamp')
 
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
         ReactGA.send({ hitType: "pageview", page: location.pathname })
         if(!allPosts){
             let p = collection(db, 'posts')
-            let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'compilations'))
+            let order = query(p, orderBy(filterPosts, 'desc'), where("section", "==", 'compilations'))
             const querySnapshot = getDocs(order).then(x=>{
                 dispatch(getCompilations(
                     x.docs.map(doc => ({data: doc.data(), id: doc.id}))
@@ -70,7 +71,7 @@ function VideoCompilations() {
             })
         }
 
-    }, []);
+    }, [filterPosts,]);
 
     let quinielasList;
     if(allPosts&&allPosts.length>0){
@@ -95,6 +96,19 @@ function VideoCompilations() {
                         content="Tiktok thots & Triller thots compilations 2021. Watch top teen thots videos for free."
                     />
                 </Helmet>
+
+                <Grid item sm={11} lg={10} xs={11}>
+                    <Item elevation={4}>
+                        <Typography variant="h6" gutterBottom style={{color: "blue", marginBottom: -3}}>
+                            filter posts by:
+                        </Typography>
+                        <ButtonGroup size='small'>
+                            <Button variant={filterPosts==='timestamp'?'contained':'outlined'} onClick={()=>setFilterPosts('timestamp')}>Newest</Button>
+                            <Button variant={filterPosts==='likes'?'contained':'outlined'} onClick={()=>setFilterPosts('likes')}>likes</Button>
+                            <Button variant={filterPosts==='repliesCount'?'contained':'outlined'} onClick={()=>setFilterPosts('repliesCount')}>views</Button>
+                        </ButtonGroup>
+                    </Item>
+                </Grid>
 
                 <Grid item sm={11} lg={10} xs={11}>
                     {quinielasList}
