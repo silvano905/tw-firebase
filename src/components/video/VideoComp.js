@@ -74,6 +74,11 @@ const VideoComp = ({post, currentUser, userData}) => {
         updateDoc(refDoc, {
             views: increment(1)
         }).then()
+        if(currentUser){
+            updateDoc(refDoc, {
+                watched: arrayUnion(currentUser.uid)
+            }).then()
+        }
 
     }
 

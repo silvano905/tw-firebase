@@ -8,7 +8,7 @@ import {
     onSnapshot, getDocs, where
 } from "firebase/firestore";
 import {Helmet} from "react-helmet";
-import {getPosts, selectPosts} from "../redux/posts/postsSlice";
+import {getPosts, selectPosts, selectUnwatched} from "../redux/posts/postsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -46,11 +46,12 @@ const Item = styled(Paper)(({ theme }) => ({
 function Post() {
     const dispatch = useDispatch()
     const allPosts = useSelector(selectPosts)
+    const allUnwatchedPosts = useSelector(selectUnwatched)
     const currentUser = useSelector(selectUser)
     const userData = useSelector(selectUserData)
 
     const [filterPosts, setFilterPosts] = useState('timestamp')
-
+    const [unwatched, setUnwatched] = useState(false)
 
     const [visible, setVisible] = useState(1)
 
@@ -85,14 +86,26 @@ function Post() {
 
     let quinielasList;
     if(allPosts&&allPosts.length>0){
-        quinielasList = allPosts.slice(0, visible).map(item => {
-            return (
-                <>
-                    <VideoComp post={item} currentUser={currentUser} userData={userData}/>
-                    <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
-                </>
-            )
-        })
+        if(unwatched){
+            quinielasList = allUnwatchedPosts.slice(0, visible).map(item => {
+                return (
+                    <>
+                        <VideoComp post={item} currentUser={currentUser} userData={userData}/>
+                        <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
+                    </>
+                )
+            })
+        }else {
+            quinielasList = allPosts.slice(0, visible).map(item => {
+                return (
+                    <>
+                        <VideoComp post={item} currentUser={currentUser} userData={userData}/>
+                        <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
+                    </>
+                )
+            })
+        }
+
     }
 
     if(allPosts){
@@ -117,6 +130,10 @@ function Post() {
                             <Button variant={filterPosts==='likes'?'contained':'outlined'} onClick={()=>setFilterPosts('likes')}>likes</Button>
                             <Button variant={filterPosts==='repliesCount'?'contained':'outlined'} onClick={()=>setFilterPosts('repliesCount')}>views</Button>
                         </ButtonGroup>
+
+                        <div style={{marginTop: 10}}>
+                            <Button variant={unwatched?'contained':'outlined'} onClick={()=>setUnwatched(!unwatched)}>view only unwatched videos</Button>
+                        </div>
                     </Item>
                 </Grid>
 

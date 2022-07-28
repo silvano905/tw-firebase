@@ -8,7 +8,7 @@ import {
     onSnapshot, getDocs, where
 } from "firebase/firestore";
 import {Helmet} from "react-helmet";
-import {getCompilations, getCompilation, selectCompilations} from "../redux/compilations/compilationsSlice";
+import {getCompilations, selectUnwatched, selectCompilations} from "../redux/compilations/compilationsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -47,6 +47,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function VideoCompilations() {
     const dispatch = useDispatch()
     const allPosts = useSelector(selectCompilations)
+    const allUnwatchedCompilations = useSelector(selectUnwatched)
     const currentUser = useSelector(selectUser)
     const userData = useSelector(selectUserData)
 
@@ -57,6 +58,7 @@ function VideoCompilations() {
     let location = useLocation()
 
     const [filterPosts, setFilterPosts] = useState('timestamp')
+    const [unwatched, setUnwatched] = useState(false)
 
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
@@ -75,14 +77,25 @@ function VideoCompilations() {
 
     let quinielasList;
     if(allPosts&&allPosts.length>0){
-        quinielasList = allPosts.slice(0, visible).map(item => {
-            return (
-                <>
-                    <VideoComp post={item} currentUser={currentUser} userData={userData}/>
-                    <Waypoint onEnter={showMoreItems}/>
-                </>
-            )
-        })
+        if(unwatched){
+            quinielasList = allUnwatchedCompilations.slice(0, visible).map(item => {
+                return (
+                    <>
+                        <VideoComp post={item} currentUser={currentUser} userData={userData}/>
+                        <Waypoint onEnter={showMoreItems}/>
+                    </>
+                )
+            })
+        }else {
+            quinielasList = allPosts.slice(0, visible).map(item => {
+                return (
+                    <>
+                        <VideoComp post={item} currentUser={currentUser} userData={userData}/>
+                        <Waypoint onEnter={showMoreItems}/>
+                    </>
+                )
+            })
+        }
     }
 
     if(allPosts){
@@ -107,6 +120,10 @@ function VideoCompilations() {
                             <Button variant={filterPosts==='likes'?'contained':'outlined'} onClick={()=>setFilterPosts('likes')}>likes</Button>
                             <Button variant={filterPosts==='repliesCount'?'contained':'outlined'} onClick={()=>setFilterPosts('repliesCount')}>views</Button>
                         </ButtonGroup>
+
+                        <div style={{marginTop: 10}}>
+                            <Button variant={unwatched?'contained':'outlined'} onClick={()=>setUnwatched(!unwatched)}>view only unwatched videos</Button>
+                        </div>
                     </Item>
                 </Grid>
 
