@@ -14,14 +14,14 @@ export const postsSlice = createSlice({
         getPost: (state, action) => {
             state.post = action.payload
         },
-        // setUnwatchedPosts: (state, action) => {
-        //     state.unwatched = state.posts.filter((item) => !item.data.watched.includes(action.payload))
-        // }
+        setUnwatchedPosts: (state, action) => {
+            state.unwatched = state.posts.filter((item) => !item.data.watched.includes(action.payload))
+        }
 
     },
 });
 
-export const { getPost, getPosts } = postsSlice.actions;
+export const { getPost, getPosts, setUnwatchedPosts } = postsSlice.actions;
 
 export const selectPosts = (state) => state.posts.posts?state.posts.posts:null;
 export const selectPost = (state) => state.posts.post?state.posts.post:null;

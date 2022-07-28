@@ -7,8 +7,9 @@ import {
     query, orderBy, serverTimestamp, limit,
     onSnapshot, getDocs, where
 } from "firebase/firestore";
+import {setAlert, removeAlert} from "../redux/alerts/alertsSlice";
 import {Helmet} from "react-helmet";
-import {getCompilations, selectUnwatched, selectCompilations} from "../redux/compilations/compilationsSlice";
+import {getCompilations, selectUnwatched, selectCompilations, setUnwatchedCompilations} from "../redux/compilations/compilationsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -71,13 +72,26 @@ function VideoCompilations() {
                     x.docs.map(doc => ({data: doc.data(), id: doc.id}))
                 ))
             })
+            if(currentUser&&allPosts){
+                dispatch(setUnwatchedCompilations(currentUser.uid))
+            }
         }
 
     }, [filterPosts,]);
 
+
+    const handleUnwatchedVideos = (e) =>{
+        if(currentUser){
+            setUnwatched(!unwatched)
+        }else {
+            dispatch(setAlert('You need an account to use this feature', 'warning'))
+            setTimeout(()=>{dispatch(removeAlert())}, 6000)
+        }
+    }
+
     let quinielasList;
     if(allPosts&&allPosts.length>0){
-        if(unwatched){
+        if(unwatched&&allUnwatchedCompilations){
             quinielasList = allUnwatchedCompilations.slice(0, visible).map(item => {
                 return (
                     <>
@@ -122,7 +136,7 @@ function VideoCompilations() {
                         </ButtonGroup>
 
                         <div style={{marginTop: 10}}>
-                            <Button variant={unwatched?'contained':'outlined'} onClick={()=>setUnwatched(!unwatched)}>view only unwatched videos</Button>
+                            <Button variant={unwatched?'contained':'outlined'} onClick={handleUnwatchedVideos}>view only unwatched videos</Button>
                         </div>
                     </Item>
                 </Grid>

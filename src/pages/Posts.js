@@ -8,7 +8,7 @@ import {
     onSnapshot, getDocs, where
 } from "firebase/firestore";
 import {Helmet} from "react-helmet";
-import {getPosts, selectPosts, selectUnwatched} from "../redux/posts/postsSlice";
+import {getPosts, selectPosts, selectUnwatched, setUnwatchedPosts} from "../redux/posts/postsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -34,6 +34,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ReactGA from "react-ga4";
+import {removeAlert, setAlert} from "../redux/alerts/alertsSlice";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -68,9 +69,22 @@ function Post() {
                     x.docs.map(doc => ({data: doc.data(), id: doc.id}))
                 ))
             })
+
+            if(currentUser&&allPosts){
+                dispatch(setUnwatchedPosts(currentUser.uid))
+            }
         // }
 
     }, [filterPosts,]);
+
+    const handleUnwatchedVideos = (e) =>{
+        if(currentUser){
+            setUnwatched(!unwatched)
+        }else {
+            dispatch(setAlert('You need an account to use this feature', 'warning'))
+            setTimeout(()=>{dispatch(removeAlert())}, 6000)
+        }
+    }
 
     //to remember the position of the last video shown
     // let elementPosition = 0
@@ -86,7 +100,7 @@ function Post() {
 
     let quinielasList;
     if(allPosts&&allPosts.length>0){
-        if(unwatched){
+        if(unwatched&&allUnwatchedPosts){
             quinielasList = allUnwatchedPosts.slice(0, visible).map(item => {
                 return (
                     <>
@@ -132,7 +146,7 @@ function Post() {
                         </ButtonGroup>
 
                         <div style={{marginTop: 10}}>
-                            <Button variant={unwatched?'contained':'outlined'} onClick={()=>setUnwatched(!unwatched)}>view only unwatched videos</Button>
+                            <Button variant={unwatched?'contained':'outlined'} onClick={handleUnwatchedVideos}>view only unwatched videos</Button>
                         </div>
                     </Item>
                 </Grid>

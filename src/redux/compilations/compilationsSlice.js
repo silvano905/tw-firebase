@@ -10,19 +10,18 @@ export const compilationsSlice = createSlice({
     reducers: {
         getCompilations: (state, action) => {
             state.compilations = action.payload
-            state.unwatched = state.compilations.filter((item) => !item.data.watched.includes(action.payload))
         },
         getCompilation: (state, action) => {
             state.compilation = action.payload
         },
-        // setUnwatchedCompilations: (state, action) => {
-        //     state.unwatched = state.compilations.filter((item) => !item.data.watched.includes(action.payload))
-        // }
+        setUnwatchedCompilations: (state, action) => {
+            state.unwatched = state.compilations.filter((item) => !item.data.watched.includes(action.payload))
+        }
 
     },
 });
 
-export const { getCompilation, getCompilations } = compilationsSlice.actions;
+export const { getCompilation, getCompilations, setUnwatchedCompilations } = compilationsSlice.actions;
 
 export const selectCompilations = (state) => state.compilations.compilations?state.compilations.compilations:null;
 export const selectCompilation = (state) => state.compilations.compilation?state.compilations.compilation:null;
