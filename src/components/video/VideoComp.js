@@ -13,6 +13,8 @@ import {
     serverTimestamp,
     updateDoc
 } from 'firebase/firestore'
+import {setUnwatchedCompilations} from "../../redux/compilations/compilationsSlice";
+import {setUnwatchedPosts} from "../../redux/posts/postsSlice";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -28,6 +30,7 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Divider from "@mui/material/Divider";
+import {useDispatch} from "react-redux";
 //end material ui
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -41,6 +44,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const VideoComp = ({post, currentUser, userData}) => {
+    const dispatch = useDispatch()
 
     const likePost = (e) => {
         e.preventDefault()
@@ -68,8 +72,9 @@ const VideoComp = ({post, currentUser, userData}) => {
         }
     }
 
-    const increaseViews = (e) => {
+    const onVideoPlay = (e) => {
         e.preventDefault()
+        //increase views by 1
         let refDoc = doc(db, 'posts', post.id)
         updateDoc(refDoc, {
             views: increment(1)
@@ -80,6 +85,19 @@ const VideoComp = ({post, currentUser, userData}) => {
             }).then()
         }
 
+
+    }
+
+    const onVideoEnd = (e) =>{
+        e.preventDefault()
+        //if the user is authenticated remove the current video from unwatched
+        if(currentUser){
+            if(post.data.section==='single'){
+                dispatch(setUnwatchedPosts(currentUser.uid))
+            }else {
+                dispatch(setUnwatchedCompilations(currentUser.uid))
+            }
+        }
     }
 
     return (
@@ -91,14 +109,14 @@ const VideoComp = ({post, currentUser, userData}) => {
                     </Typography>
 
                     {userData&&userData.premium&&post.data.videoIds[index].premium?
-                        <Stream controls src={post.data.videoIds[index]} onPlay={increaseViews}/>
+                        <Stream controls src={post.data.videoIds[index]} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
 
                         :
                         !post.data.videoIds[index].premium?
-                            <Stream controls src={post.data.videoIds[index]} onPlay={increaseViews}/>
+                            <Stream controls src={post.data.videoIds[index]} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
                             :
                             <div style={{position: "relative"}}>
-                                <Stream src={post.data.videoIds[index]} onPlay={increaseViews}/>
+                                <Stream src={post.data.videoIds[index]} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
                                 <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
                                     position:"absolute",
                                     textAlign: "center",
@@ -116,14 +134,14 @@ const VideoComp = ({post, currentUser, userData}) => {
                 :
                 <>
                     {userData&&userData.premium&&post.data.premium?
-                        <Stream controls src={post.data.videoId} onPlay={increaseViews}/>
+                        <Stream controls src={post.data.videoId} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
 
                         :
                         !post.data.premium?
-                            <Stream controls src={post.data.videoId} onPlay={increaseViews}/>
+                            <Stream controls src={post.data.videoId} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
                             :
                             <div style={{position: "relative"}}>
-                                <Stream src={post.data.videoId} onPlay={increaseViews}/>
+                                <Stream src={post.data.videoId} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
                                 <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
                                     position:"absolute",
                                     textAlign: "center",

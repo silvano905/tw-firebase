@@ -14,6 +14,9 @@ export const compilationsSlice = createSlice({
         getCompilation: (state, action) => {
             state.compilation = action.payload
         },
+        removeUnwatchedCompilations: (state, action) => {
+            state.unwatched = null
+        },
         setUnwatchedCompilations: (state, action) => {
             state.unwatched = state.compilations.filter((item) => !item.data.watched.includes(action.payload))
         }
@@ -21,7 +24,7 @@ export const compilationsSlice = createSlice({
     },
 });
 
-export const { getCompilation, getCompilations, setUnwatchedCompilations } = compilationsSlice.actions;
+export const { getCompilation, getCompilations, setUnwatchedCompilations, removeUnwatchedCompilations } = compilationsSlice.actions;
 
 export const selectCompilations = (state) => state.compilations.compilations?state.compilations.compilations:null;
 export const selectCompilation = (state) => state.compilations.compilation?state.compilations.compilation:null;

@@ -81,10 +81,11 @@ function VideoCompilations() {
 
 
     const handleUnwatchedVideos = (e) =>{
+        e.preventDefault()
         if(currentUser){
             setUnwatched(!unwatched)
         }else {
-            dispatch(setAlert('You need an account to use this feature', 'warning'))
+            dispatch(setAlert({message: 'you need an account to use this feature', type: 'info'}))
             setTimeout(()=>{dispatch(removeAlert())}, 6000)
         }
     }

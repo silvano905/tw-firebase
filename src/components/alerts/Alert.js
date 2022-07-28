@@ -12,8 +12,8 @@ const Alerts = () => {
     //return alerts if not null and greater than 0
     if(alerts){
         return (
-            <Alert severity={alert.alertType} key={alert.id}>
-                {alerts}
+            <Alert severity={alerts.type} key={alert.id}>
+                {alerts.message}
             </Alert>
         )
     }

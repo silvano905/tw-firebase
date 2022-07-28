@@ -3,6 +3,8 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout, selectUser} from "../redux/user/userSlice";
+import {removeUnwatched} from "../redux/posts/postsSlice";
+import {removeUnwatchedCompilations} from "../redux/compilations/compilationsSlice";
 import {auth} from "../config-firebase/firebase";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -23,6 +25,8 @@ const Navbar = () => {
 
     const logoutOfApp = () => {
         dispatch(logout())
+        dispatch(removeUnwatched())
+        dispatch(removeUnwatchedCompilations())
         auth.signOut().then()
     }
 
