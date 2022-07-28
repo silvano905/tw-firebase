@@ -7,14 +7,14 @@ import {
     arrayUnion,
     collection,
     deleteDoc,
-    doc,
+    doc, getDoc,
     increment, limit, onSnapshot, orderBy,
     query,
     serverTimestamp,
     updateDoc
 } from 'firebase/firestore'
-import {setUnwatchedCompilations} from "../../redux/compilations/compilationsSlice";
-import {setUnwatchedPosts} from "../../redux/posts/postsSlice";
+import {removeUnwatchedCompilations, updateUnwatchedCompilations} from "../../redux/compilations/compilationsSlice";
+import {removeUnwatchedPosts, updateUnwatchedPosts} from "../../redux/posts/postsSlice";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -31,6 +31,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Divider from "@mui/material/Divider";
 import {useDispatch} from "react-redux";
+import {getUserData} from "../../redux/user/userSlice";
 //end material ui
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -82,7 +83,20 @@ const VideoComp = ({post, currentUser, userData}) => {
         if(currentUser){
             updateDoc(refDoc, {
                 watched: arrayUnion(currentUser.uid)
-            }).then()
+            }).then(()=>{
+                let updated = doc(db, 'posts', post.id)
+                const docSnap = getDoc(updated).then((x)=>{
+                    if(x.data().section==='single'){
+                        dispatch(updateUnwatchedPosts({
+                            id: x.id, data: x.data()
+                        }))
+                    }else {
+                        dispatch(updateUnwatchedCompilations({
+                            id: x.id, data: x.data()
+                        }))
+                    }
+                })
+            })
         }
 
 
@@ -93,9 +107,11 @@ const VideoComp = ({post, currentUser, userData}) => {
         //if the user is authenticated remove the current video from unwatched
         if(currentUser){
             if(post.data.section==='single'){
-                dispatch(setUnwatchedPosts(currentUser.uid))
-            }else {
-                dispatch(setUnwatchedCompilations(currentUser.uid))
+                dispatch(removeUnwatchedPosts(currentUser.uid))
+            }
+
+            if(post.data.section === 'compilations'&&index === post.data.videoIds.length-1){
+                dispatch(removeUnwatchedCompilations(currentUser.uid))
             }
         }
     }

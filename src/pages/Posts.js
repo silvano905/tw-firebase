@@ -70,9 +70,6 @@ function Post() {
                 ))
             })
 
-            if(currentUser&&allPosts){
-                dispatch(setUnwatchedPosts(currentUser.uid))
-            }
         // }
 
     }, [filterPosts,]);
@@ -80,6 +77,7 @@ function Post() {
     const handleUnwatchedVideos = (e) =>{
         e.preventDefault()
         if(currentUser){
+            dispatch(setUnwatchedPosts(currentUser.uid))
             setUnwatched(!unwatched)
         }else {
             dispatch(setAlert({message: 'you need an account to use this feature', type: 'info'}))
