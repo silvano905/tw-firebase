@@ -80,7 +80,7 @@ function VideoCompilations() {
 
     //to remember the position of the last video shown
     let elementPosition = 0
-    if(allPosts&&allPosts.length>0){
+    if(allPosts&&allPosts.length>0&&scrollDown){
         elementPosition = allPosts.findIndex(object => {
             return object.id === lastCompilationPlayedId;
         });
