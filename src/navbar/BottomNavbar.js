@@ -2,34 +2,13 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
-import CreateIcon from '@mui/icons-material/Create';
 import Box from '@mui/material/Box';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import HomeIcon from '@mui/icons-material/Home';
-import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Paper from '@mui/material/Paper';
 import Fab from '@mui/material/Fab';
-import ForumIcon from '@mui/icons-material/Forum';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import Avatar from '@mui/material/Avatar';
-import MenuIcon from '@mui/icons-material/Menu';
-import AddIcon from '@mui/icons-material/Add';
-import SearchIcon from '@mui/icons-material/Search';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
-import MoreIcon from '@mui/icons-material/MoreVert';
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/user/userSlice";
 const StyledFab = styled(Fab)({
@@ -44,7 +23,6 @@ const StyledFab = styled(Fab)({
 });
 
 function BottomNavbar() {
-    const currentUser = useSelector(selectUser)
 
     return (
         <div>
@@ -67,9 +45,6 @@ function BottomNavbar() {
                             <VideoLibraryIcon fontSize='large'/>
                         </Link>
                     </IconButton>
-                    {/*<IconButton color="inherit">*/}
-                    {/*    <MoreIcon />*/}
-                    {/*</IconButton>*/}
                 </Toolbar>
             </AppBar>
             <Toolbar/>

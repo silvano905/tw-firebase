@@ -1,18 +1,14 @@
 import React, {useState, Fragment, useEffect} from 'react';
-import {auth, db} from '../config-firebase/firebase'
-import { createUserWithEmailAndPassword, updateProfile,  } from 'firebase/auth'
-import {addDoc, collection, onSnapshot, orderBy, query, doc, setDoc, serverTimestamp} from "firebase/firestore";
+import {db} from '../config-firebase/firebase'
+import {addDoc, collection, serverTimestamp} from "firebase/firestore";
 import {useDispatch, useSelector} from "react-redux";
-import {login, selectUser, getUserData} from "../redux/user/userSlice";
-import {Link, Navigate} from "react-router-dom";
+import {selectUser} from "../redux/user/userSlice";
+import {Navigate} from "react-router-dom";
 import './Register.css'
 // material ui
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import Switch from '@mui/material/Switch';
-import FormLabel from '@mui/material/FormLabel';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from "@mui/material/Grid";
 import Button from '@mui/material/Button';
@@ -22,8 +18,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import TextField from "@mui/material/TextField";
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import ReactGA from "react-ga4";
+import Select from '@mui/material/Select';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -58,7 +53,6 @@ function CreatePost() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const { title, premium, videoId, views, folder, likes } = formData;
-    const [disableButton, setDisableButton] = useState(false)
 
     const register = (e) => {
         e.preventDefault()
@@ -77,7 +71,6 @@ function CreatePost() {
         }).then()
 
     }
-    const dispatch = useDispatch()
 
     if(user.uid!=='JuWneKYgAFfQGy2ZkGwR0xz45XK2'){
         return <Navigate to='/'/>

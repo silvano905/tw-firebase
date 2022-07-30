@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react';
+import React, {Fragment, useState } from 'react';
 import EditForm from "../components/account/EditForm";
 import DeleteAccount from "../components/account/DeleteAccount";
 import Grid from "@mui/material/Grid";
@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Divider from "@mui/material/Divider";
-import SportsSoccerIcon from "@mui/icons-material/SportsSoccer";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/user/userSlice";

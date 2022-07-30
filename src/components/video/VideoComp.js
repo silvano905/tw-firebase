@@ -1,38 +1,24 @@
-import React, {Fragment, useEffect, useState} from "react";
-import { Waypoint } from 'react-waypoint';
+import React, {useState} from "react";
 import { Stream } from "@cloudflare/stream-react";
 import {db} from '../../config-firebase/firebase'
 import {
-    addDoc,
     arrayUnion,
-    collection,
-    deleteDoc,
     doc, getDoc,
-    increment, limit, onSnapshot, orderBy,
-    query,
-    serverTimestamp,
+    increment,
     updateDoc
 } from 'firebase/firestore'
 import {removeUnwatchedCompilations, updateUnwatchedCompilations, setLastCompilationPlayed} from "../../redux/compilations/compilationsSlice";
 import {removeUnwatchedPosts, updateUnwatchedPosts, setLastVideoPlayed} from "../../redux/posts/postsSlice";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Grid from "@mui/material/Grid";
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Stack from "@mui/material/Stack";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import Divider from "@mui/material/Divider";
 import {useDispatch} from "react-redux";
-import {getUserData} from "../../redux/user/userSlice";
-//end material ui
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,

@@ -6,7 +6,6 @@ import {logout, selectUser} from "../redux/user/userSlice";
 import {nullUnwatchedPosts} from "../redux/posts/postsSlice";
 import {nullUnwatchedCompilations} from "../redux/compilations/compilationsSlice";
 import {auth} from "../config-firebase/firebase";
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -16,7 +15,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
-import PublicIcon from '@mui/icons-material/Public';
 
 const Navbar = () => {
     const dispatch = useDispatch()
@@ -26,7 +24,7 @@ const Navbar = () => {
     const logoutOfApp = () => {
         dispatch(logout())
         dispatch(nullUnwatchedPosts())
-        dispatch(nullUnwatchedPosts())
+        dispatch(nullUnwatchedCompilations())
         auth.signOut().then()
     }
 
@@ -35,10 +33,6 @@ const Navbar = () => {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);

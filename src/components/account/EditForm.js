@@ -2,18 +2,6 @@ import React, {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {auth, db} from '../../config-firebase/firebase'
 import { updateProfile, updateEmail } from 'firebase/auth'
-import {getUserData} from "../../redux/user/userSlice";
-import {
-    addDoc,
-    arrayUnion,
-    collection,
-    deleteDoc,
-    doc,
-    increment, limit, onSnapshot, orderBy,
-    query,
-    serverTimestamp,
-    updateDoc
-} from 'firebase/firestore'
 import FormControl from "@mui/material/FormControl";
 import Button from '@mui/material/Button';
 import TextField from "@mui/material/TextField";

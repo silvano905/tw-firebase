@@ -5,7 +5,7 @@ import {Navigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {login, selectUser, getUserData} from "../redux/user/userSlice";
 import {Link} from "react-router-dom";
-import {doc, onSnapshot, getDoc} from "firebase/firestore";
+import {doc, getDoc} from "firebase/firestore";
 import {setAlert, removeAlert} from "../redux/alerts/alertsSlice";
 import ReactGA from "react-ga4";
 

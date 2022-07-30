@@ -2,13 +2,11 @@ import React, {Fragment, useEffect, useState, useRef} from 'react';
 import {useNavigate} from "react-router-dom"
 import { useSelector,useDispatch } from 'react-redux';
 import {selectUser, getUserData} from "../../redux/user/userSlice";
-import {collection, getDocs, orderBy, query, where, updateDoc, doc} from "firebase/firestore";
+import {updateDoc, doc} from "firebase/firestore";
 import {db} from '../../config-firebase/firebase'
 import Grid from "@mui/material/Grid";
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import {removeAlert, setAlert} from "../../redux/alerts/alertsSlice";
 const Item = styled(Paper)(({ theme }) => ({

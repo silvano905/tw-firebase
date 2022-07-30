@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
-import { getAuth, updateProfile, signInWithPopup } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 
-import { getDownloadURL, getStorage, ref, uploadBytes, deleteObject } from "firebase/storage";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBtxYrVceF3lb7CJHrahCspCiKL0nPX35I",
@@ -20,24 +20,6 @@ const db = getFirestore()
 const auth = getAuth()
 const storage = getStorage();
 
-const imageUploadPost = async (file) => {
-    const fileRef = ref(storage, file.name+ '.png');
-
-    await uploadBytes(fileRef, file);
-    const photoURL = await getDownloadURL(fileRef);
-
-    return photoURL
-}
-
-const imageUploadUser = async (file, user, displayName) => {
-    const fileRef = ref(storage, user.user.uid + '.png');
-
-    await uploadBytes(fileRef, file);
-    const photoURL = await getDownloadURL(fileRef);
-
-    await updateProfile(user.user, {photoURL: photoURL, displayName: displayName})
-    return photoURL
-}
 
 const deleteImage = async (file) => {
     let r = ref(storage, file)
@@ -45,6 +27,6 @@ const deleteImage = async (file) => {
 }
 
 
-export {db, auth, imageUploadUser, imageUploadPost, deleteImage}
+export {db, auth, deleteImage}
 
 

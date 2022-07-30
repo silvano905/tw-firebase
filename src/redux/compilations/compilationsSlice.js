@@ -37,7 +37,6 @@ export const compilationsSlice = createSlice({
 export const { getCompilations, setUnwatchedCompilations, removeUnwatchedCompilations, nullUnwatchedCompilations, updateUnwatchedCompilations, setLastCompilationPlayed } = compilationsSlice.actions;
 
 export const selectCompilations = (state) => state.compilations.compilations?state.compilations.compilations:null;
-export const selectCompilation = (state) => state.compilations.compilation?state.compilations.compilation:null;
 export const selectUnwatched = (state) => state.compilations.unwatched?state.compilations.unwatched:null;
 export const selectLastCompilationPlayedId = (state) => state.compilations.lastCompilationPlayedId?state.compilations.lastCompilationPlayedId:null;
 

@@ -1,15 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
-import { Stream } from "@cloudflare/stream-react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import VideoComp from "../components/video/VideoComp";
 import {
-    collection, addDoc,
-    query, orderBy, serverTimestamp, limit,
-    onSnapshot, getDocs, where
+    collection,
+    query, orderBy, getDocs, where
 } from "firebase/firestore";
 import {setAlert, removeAlert} from "../redux/alerts/alertsSlice";
 import {Helmet} from "react-helmet";
-import {getCompilations, selectUnwatched, selectCompilations, setUnwatchedCompilations, setLastCompilationPlayed, selectLastCompilationPlayedId} from "../redux/compilations/compilationsSlice";
+import {getCompilations, selectUnwatched, selectCompilations, setUnwatchedCompilations, selectLastCompilationPlayedId} from "../redux/compilations/compilationsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -17,23 +15,10 @@ import Grid from "@mui/material/Grid";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUser, selectUserData} from "../redux/user/userSlice";
 import {styled} from "@mui/material/styles";
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import Divider from '@mui/material/Divider';
 import Paper from "@mui/material/Paper";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
-import List from '@mui/material/List';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ReactGA from "react-ga4";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -171,14 +156,17 @@ function VideoCompilations() {
                             <Button variant={unwatched?'contained':'outlined'} onClick={handleUnwatchedVideos}>view only unwatched videos</Button>
                         </div>
 
-                        <div style={{marginTop: 10}}>
-                            <Button size='small' variant={unwatched?'contained':'outlined'} onClick={()=>{
-                                scrollToBottom()
-                                setScrollDown(true)
-                            }}>
-                                last video played
-                            </Button>
-                        </div>
+                        {lastCompilationPlayedId&&
+                            <div style={{marginTop: 10}}>
+                                <Button size='small' variant={unwatched?'contained':'outlined'} onClick={()=>{
+                                    scrollToBottom()
+                                    setScrollDown(true)
+                                }}>
+                                    last video played
+                                </Button>
+                            </div>
+                        }
+
                     </Item>
                 </Grid>
 

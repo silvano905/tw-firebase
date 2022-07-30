@@ -32,13 +32,10 @@ function App() {
         <Navbar/>
         <Alerts/>
         <Routes>
-          <Route element={<ProtectedRoute user={userAuth} />}>
-            <Route path="account" element={<Account />} />
-            {/*<Route path='/buy' element={<BuyQuinielas />} />*/}
-            {/*<Route path='/myQuinielas' element={<UserQuinielas />} />*/}
-
-          </Route>
-          <Route path='/' element={<Home />} />
+            <Route element={<ProtectedRoute user={userAuth} />}>
+                <Route path="account" element={<Account />} />
+            </Route>
+            <Route path='/' element={<Home />} />
             <Route path='/teen-creepshots' element={<Posts />} />
             <Route path='/premium' element={<Cart />} />
             <Route path='/tiktok-thots' element={<VideoCompilations />} />

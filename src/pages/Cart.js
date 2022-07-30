@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { useEffect} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import Grid from "@mui/material/Grid";
 import Typography from '@mui/material/Typography';
@@ -22,15 +22,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const Cart = () => {
-    const currentUser = useSelector(selectUser)
-
-    //react hooks
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-    }, []);
-
-
     return (
 
         <Box sx={{ flexGrow: 1 }}>

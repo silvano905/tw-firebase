@@ -1,7 +1,7 @@
 import React, {useState, Fragment, useEffect} from 'react';
 import {auth, db} from '../config-firebase/firebase'
 import { createUserWithEmailAndPassword, updateProfile,  } from 'firebase/auth'
-import {addDoc, collection, onSnapshot, orderBy, query, doc, setDoc, serverTimestamp} from "firebase/firestore";
+import {doc, setDoc} from "firebase/firestore";
 import {useDispatch, useSelector} from "react-redux";
 import {login, selectUser, getUserData} from "../redux/user/userSlice";
 import {Link, Navigate} from "react-router-dom";
@@ -189,31 +189,6 @@ function Register() {
                             <Typography style={{color: 'black', fontSize:'14px'}}>
                                 Copyright © 2018-2022 Quinielasligamx. All rights reserved.
                             </Typography>
-                            {/*<Grid container direction="row" justify="center" alignItems="center">*/}
-                            {/*    <Grid item xs={4} sm={4} lg={4}>*/}
-                            {/*        <Typography variant="subtitle1" gutterBottom>*/}
-                            {/*            <Link to='/privacy' style={{color: 'blue', textDecoration: 'none', fontSize:'14px'}}>*/}
-                            {/*                Privacy*/}
-                            {/*            </Link>*/}
-                            {/*        </Typography>*/}
-                            {/*    </Grid>*/}
-
-                            {/*    <Grid item xs={4} sm={4} lg={4}>*/}
-                            {/*        <Typography variant="subtitle1" gutterBottom>*/}
-                            {/*            <Link to='/terms' style={{color: 'blue', textDecoration: 'none', fontSize:'14px'}}>*/}
-                            {/*                Terms*/}
-                            {/*            </Link>*/}
-                            {/*        </Typography>*/}
-                            {/*    </Grid>*/}
-
-                            {/*    <Grid item xs={4} sm={4} lg={4}>*/}
-                            {/*        <Typography variant="subtitle1" gutterBottom>*/}
-                            {/*            <Link to='/about' style={{color: 'blue', textDecoration: 'none', fontSize:'14px'}}>*/}
-                            {/*                About*/}
-                            {/*            </Link>*/}
-                            {/*        </Typography>*/}
-                            {/*    </Grid>*/}
-                            {/*</Grid>*/}
 
                         </Item>
                     </Grid>
