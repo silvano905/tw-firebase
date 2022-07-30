@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Stream } from "@cloudflare/stream-react";
 import {Link, useLocation} from "react-router-dom";
 import VideoComp from "../components/video/VideoComp";
@@ -8,7 +8,7 @@ import {
     onSnapshot, getDocs, where
 } from "firebase/firestore";
 import {Helmet} from "react-helmet";
-import {getPosts, selectPosts, selectUnwatched, setUnwatchedPosts} from "../redux/posts/postsSlice";
+import {getPosts, selectPosts, selectUnwatched, setUnwatchedPosts, selectLastPostPlayedId} from "../redux/posts/postsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -50,6 +50,21 @@ function Post() {
     const allUnwatchedPosts = useSelector(selectUnwatched)
     const currentUser = useSelector(selectUser)
     const userData = useSelector(selectUserData)
+    const lastPostPlayedId = useSelector(selectLastPostPlayedId)
+
+    //to scroll to tha last video played
+    const pk = useRef(null)
+    const[scrollDown, setScrollDown] = useState(false)
+    const scrollToBottom = (e) => {
+        setScrollDown(true)
+        pk.current.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start"
+        });
+        setTimeout(()=>setScrollDown(false), 1000)
+    };
+    //end
 
     const [filterPosts, setFilterPosts] = useState('timestamp')
     const [unwatched, setUnwatched] = useState(false)
@@ -61,7 +76,7 @@ function Post() {
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
         ReactGA.send({ hitType: "pageview", page: location.pathname })
-        // if(allPosts.length<=0){
+        if(!allPosts){
             let p = collection(db, 'posts')
             let order = query(p, orderBy(filterPosts, 'desc'), where("section", "==", 'single'))
             const querySnapshot = getDocs(order).then(x=>{
@@ -70,9 +85,9 @@ function Post() {
                 ))
             })
 
-        // }
+        }
+    }, [filterPosts,])
 
-    }, [filterPosts,]);
 
     const handleUnwatchedVideos = (e) =>{
         e.preventDefault()
@@ -86,15 +101,15 @@ function Post() {
     }
 
     //to remember the position of the last video shown
-    // let elementPosition = 0
-    // if(allPosts&&allPosts.length>0){
-    //     elementPosition = allPosts.findIndex(object => {
-    //         return object.id === lastVideoShownId;
-    //     });
-    //     if(elementPosition>=visible){
-    //         setVisible(prevState => prevState + elementPosition)
-    //     }
-    // }
+    let elementPosition = 0
+    if(allPosts&&allPosts.length>0){
+        elementPosition = allPosts.findIndex(object => {
+            return object.id === lastPostPlayedId;
+        });
+        // if(elementPosition>=visible){
+        //     setVisible(prevState => prevState + elementPosition)
+        // }
+    }
     //end
 
     let quinielasList;
@@ -109,11 +124,12 @@ function Post() {
                 )
             })
         }else {
-            quinielasList = allPosts.slice(0, visible).map(item => {
+            quinielasList = allPosts.slice(0, lastPostPlayedId&&scrollDown?elementPosition:elementPosition+visible).map(item => {
                 return (
                     <>
                         <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
+                        <div ref={pk}></div>
                     </>
                 )
             })
@@ -146,6 +162,14 @@ function Post() {
 
                         <div style={{marginTop: 10}}>
                             <Button variant={unwatched?'contained':'outlined'} onClick={handleUnwatchedVideos}>view only unwatched videos</Button>
+                        </div>
+
+                        <div style={{marginTop: 10}}>
+                            <Button size='small' variant={unwatched?'contained':'outlined'} onClick={()=>{
+                                scrollToBottom()
+                            }}>
+                                last video played
+                            </Button>
                         </div>
                     </Item>
                 </Grid>

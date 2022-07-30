@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Stream } from "@cloudflare/stream-react";
 import { Link, useLocation } from "react-router-dom";
 import VideoComp from "../components/video/VideoComp";
@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import {setAlert, removeAlert} from "../redux/alerts/alertsSlice";
 import {Helmet} from "react-helmet";
-import {getCompilations, selectUnwatched, selectCompilations, setUnwatchedCompilations} from "../redux/compilations/compilationsSlice";
+import {getCompilations, selectUnwatched, selectCompilations, setUnwatchedCompilations, setLastCompilationPlayed, selectLastCompilationPlayedId} from "../redux/compilations/compilationsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -51,6 +51,23 @@ function VideoCompilations() {
     const allUnwatchedCompilations = useSelector(selectUnwatched)
     const currentUser = useSelector(selectUser)
     const userData = useSelector(selectUserData)
+    const lastCompilationPlayedId = useSelector(selectLastCompilationPlayedId)
+
+    //to scroll to tha last video played
+    const pk = useRef(null)
+    const[scrollDown, setScrollDown] = useState(false)
+    const scrollToBottom = (e) => {
+        setScrollDown(true)
+        pk.current.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start"
+        });
+        setTimeout(()=>setScrollDown(false), 1000)
+
+    };
+    //end
+
 
     const [visible, setVisible] = useState(1)
     const showMoreItems = () =>{
@@ -60,6 +77,18 @@ function VideoCompilations() {
 
     const [filterPosts, setFilterPosts] = useState('timestamp')
     const [unwatched, setUnwatched] = useState(false)
+
+    //to remember the position of the last video shown
+    let elementPosition = 0
+    if(allPosts&&allPosts.length>0){
+        elementPosition = allPosts.findIndex(object => {
+            return object.id === lastCompilationPlayedId;
+        });
+        if(elementPosition>=visible){
+            setVisible(prevState => prevState + elementPosition)
+        }
+    }
+    //end
 
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
@@ -103,11 +132,12 @@ function VideoCompilations() {
                 )
             })
         }else {
-            quinielasList = allPosts.slice(0, visible).map(item => {
+            quinielasList = allPosts.slice(0, lastCompilationPlayedId&&scrollDown?elementPosition:elementPosition+visible).map(item => {
                 return (
                     <>
                         <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={showMoreItems}/>
+                        <div ref={pk}></div>
                     </>
                 )
             })
@@ -139,6 +169,15 @@ function VideoCompilations() {
 
                         <div style={{marginTop: 10}}>
                             <Button variant={unwatched?'contained':'outlined'} onClick={handleUnwatchedVideos}>view only unwatched videos</Button>
+                        </div>
+
+                        <div style={{marginTop: 10}}>
+                            <Button size='small' variant={unwatched?'contained':'outlined'} onClick={()=>{
+                                scrollToBottom()
+                                setScrollDown(true)
+                            }}>
+                                last video played
+                            </Button>
                         </div>
                     </Item>
                 </Grid>

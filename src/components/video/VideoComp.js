@@ -13,8 +13,8 @@ import {
     serverTimestamp,
     updateDoc
 } from 'firebase/firestore'
-import {removeUnwatchedCompilations, updateUnwatchedCompilations} from "../../redux/compilations/compilationsSlice";
-import {removeUnwatchedPosts, updateUnwatchedPosts} from "../../redux/posts/postsSlice";
+import {removeUnwatchedCompilations, updateUnwatchedCompilations, setLastCompilationPlayed} from "../../redux/compilations/compilationsSlice";
+import {removeUnwatchedPosts, updateUnwatchedPosts, setLastVideoPlayed} from "../../redux/posts/postsSlice";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
@@ -97,6 +97,11 @@ const VideoComp = ({post, currentUser, userData}) => {
                     }
                 })
             })
+        }
+        if(post.data.section==='single'){
+            dispatch(setLastVideoPlayed(post.id))
+        }else {
+            dispatch(setLastCompilationPlayed(post.id))
         }
 
 

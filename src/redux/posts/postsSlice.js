@@ -5,7 +5,8 @@ export const postsSlice = createSlice({
     initialState: {
         posts: null,
         post: null,
-        unwatched: null
+        unwatched: null,
+        lastPostPlayedId: null
     },
     reducers: {
         getPosts: (state, action) => {
@@ -16,6 +17,9 @@ export const postsSlice = createSlice({
         },
         nullUnwatchedPosts: (state, action) => {
             state.unwatched = null
+        },
+        setLastVideoPlayed: (state, action) => {
+            state.lastPostPlayedId = action.payload
         },
         setUnwatchedPosts: (state, action) => {
             state.unwatched = state.posts.filter((item) => !item.data.watched.includes(action.payload))
@@ -30,10 +34,11 @@ export const postsSlice = createSlice({
     },
 });
 
-export const { getPost, getPosts, setUnwatchedPosts, nullUnwatchedPosts, removeUnwatchedPosts, updateUnwatchedPosts } = postsSlice.actions;
+export const { getPost, getPosts, setUnwatchedPosts, nullUnwatchedPosts, removeUnwatchedPosts, updateUnwatchedPosts, setLastVideoPlayed } = postsSlice.actions;
 
 export const selectPosts = (state) => state.posts.posts?state.posts.posts:null;
 export const selectPost = (state) => state.posts.post?state.posts.post:null;
 export const selectUnwatched = (state) => state.posts.unwatched?state.posts.unwatched:null;
+export const selectLastPostPlayedId = (state) => state.posts.lastPostPlayedId?state.posts.lastPostPlayedId:null;
 
 export default postsSlice.reducer;

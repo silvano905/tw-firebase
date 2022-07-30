@@ -48,7 +48,7 @@ const EditForm = ({id, name, email}) => {
             }).then()
             dispatch(login({
                 email: formData.email,
-                id: auth.currentUser.uid,
+                uid: auth.currentUser.uid,
                 displayName: formData.displayName,
             }))
         }

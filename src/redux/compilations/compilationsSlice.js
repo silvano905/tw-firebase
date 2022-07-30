@@ -5,7 +5,8 @@ export const compilationsSlice = createSlice({
     initialState: {
         compilations: null,
         compilation: null,
-        unwatched: null
+        unwatched: null,
+        lastCompilationPlayedId: null
     },
     reducers: {
         getCompilations: (state, action) => {
@@ -16,6 +17,9 @@ export const compilationsSlice = createSlice({
         },
         nullUnwatchedCompilations: (state, action) => {
             state.unwatched = null
+        },
+        setLastCompilationPlayed: (state, action) => {
+            state.lastCompilationPlayedId = action.payload
         },
         setUnwatchedCompilations: (state, action) => {
             state.unwatched = state.compilations.filter((item) => !item.data.watched.includes(action.payload))
@@ -30,10 +34,11 @@ export const compilationsSlice = createSlice({
     },
 });
 
-export const { getCompilations, setUnwatchedCompilations, removeUnwatchedCompilations, nullUnwatchedCompilations, updateUnwatchedCompilations } = compilationsSlice.actions;
+export const { getCompilations, setUnwatchedCompilations, removeUnwatchedCompilations, nullUnwatchedCompilations, updateUnwatchedCompilations, setLastCompilationPlayed } = compilationsSlice.actions;
 
 export const selectCompilations = (state) => state.compilations.compilations?state.compilations.compilations:null;
 export const selectCompilation = (state) => state.compilations.compilation?state.compilations.compilation:null;
 export const selectUnwatched = (state) => state.compilations.unwatched?state.compilations.unwatched:null;
+export const selectLastCompilationPlayedId = (state) => state.compilations.lastCompilationPlayedId?state.compilations.lastCompilationPlayedId:null;
 
 export default compilationsSlice.reducer;
