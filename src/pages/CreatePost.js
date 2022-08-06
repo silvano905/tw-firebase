@@ -44,6 +44,8 @@ function CreatePost() {
         folder: ''
     });
 
+    const [disableButton, setDisableButton] = useState(false)
+
     const onChangeVideoIds = (e) => {
         setVideoIds(current => [...current, formData.videoId]);
         setFormData({...formData, videoId: ''})
@@ -56,6 +58,7 @@ function CreatePost() {
 
     const register = (e) => {
         e.preventDefault()
+        setDisableButton(true)
         addDoc(collection(db, "posts"), {
             title: title,
             videoId: videoIds.length>0?'':videoId,
@@ -68,7 +71,11 @@ function CreatePost() {
             folder: folder,
             likedByUser: [],
             timestamp: serverTimestamp()
-        }).then()
+        }).then(()=>{
+            setFormData({title: '', premium: false, folder: '', views: 0, videoId: '', likes: 0})
+            setVideoIds([])
+            setDisableButton(false)
+        })
 
     }
 
@@ -96,7 +103,7 @@ function CreatePost() {
                                                 id="standard-basic"
                                                 label="Title"
                                                 name="title"
-                                                inputProps={{ maxLength: 20 }}
+                                                inputProps={{ maxLength: 25 }}
                                                 value={title}
                                                 onChange={onChange}
                                                 required

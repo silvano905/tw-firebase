@@ -61,7 +61,7 @@ function Post() {
     useEffect(() => {
         ReactGA.initialize('G-PH7BM56H1X')
         ReactGA.send({ hitType: "pageview", page: location.pathname })
-        if(!allPosts){
+        // if(!allPosts){
             let p = collection(db, 'posts')
             let order = query(p, orderBy(filterPosts, 'desc'), where("section", "==", 'single'))
             const querySnapshot = getDocs(order).then(x=>{
@@ -69,7 +69,7 @@ function Post() {
                     x.docs.map(doc => ({data: doc.data(), id: doc.id}))
                 ))
             })
-        }
+        // }
     }, [filterPosts,])
 
 

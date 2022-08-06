@@ -145,7 +145,12 @@ const VideoComp = ({post, currentUser, userData}) => {
 
                         :
                         !post.data.premium?
-                            <Stream controls src={post.data.videoId} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
+                            <>
+                                <Typography variant="h6" gutterBottom>
+                                    {post.data.title}
+                                </Typography>
+                                <Stream controls src={post.data.videoId} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
+                            </>
                             :
                             <div style={{position: "relative"}}>
                                 <Stream src={post.data.videoId} onPlay={onVideoPlay} onEnded={onVideoEnd}/>
