@@ -83,7 +83,6 @@ function CreateTumblr() {
                                                 id="standard-basic"
                                                 label="Url"
                                                 name="url"
-                                                inputProps={{ maxLength: 25 }}
                                                 value={url}
                                                 onChange={onChange}
                                                 required

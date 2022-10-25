@@ -47,7 +47,7 @@ function Tumblr() {
                         src={"https://embed.tumblr.com/embed/post/"+item.data.url}
                         title="iframe Example 1"
                         frameBorder='0'
-                        style={{display: "block", width: '100%', height: '73vh'}}
+                        style={{display: "block", width: '100%', height: '64vh'}}
                     >
                     </iframe>
                     <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
