@@ -9,9 +9,12 @@ import BottomNavbar from "./navbar/BottomNavbar";
 import {useSelector} from "react-redux";
 import {selectUser} from "./redux/user/userSlice";
 import CreatePost from "./pages/CreatePost";
+import Tumblr from "./pages/Tumblr";
 import VideoCompilations from "./pages/VideoCompilations";
 import Posts from "./pages/Posts";
 import Cart from "./pages/Cart";
+import Pictures from "./pages/Pictures";
+import CreateTumblr from "./pages/CreateTumblr"
 function App() {
   const userAuth = useSelector(selectUser)
 
@@ -40,8 +43,11 @@ function App() {
             <Route path='/premium' element={<Cart />} />
             <Route path='/tiktok-thots' element={<VideoCompilations />} />
             <Route path='/create' element={<CreatePost />} />
+            <Route path='/create-tumblr' element={<CreateTumblr />} />
             <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
+            <Route path='/teen-thot-pictures' element={<Pictures />} />
+            <Route path='/tumblr-thots' element={<Tumblr />} />
+            <Route path='/register' element={<Register />} />
         </Routes>
         <BottomNavbar/>
       </div>

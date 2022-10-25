@@ -8,6 +8,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Fab from '@mui/material/Fab';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import CollectionsIcon from '@mui/icons-material/Collections';
+import VideocamIcon from '@mui/icons-material/Videocam';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/user/userSlice";
@@ -33,6 +35,11 @@ function BottomNavbar() {
                             <HomeIcon fontSize='large'/>
                         </Link>
                     </IconButton>
+                    <IconButton color="inherit" aria-label="open drawer">
+                        <Link to='/teen-thot-pictures' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
+                            <CollectionsIcon fontSize='large'/>
+                        </Link>
+                    </IconButton>
                     <Link to='/tiktok-thots' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
                         <StyledFab aria-label="add">
                             <PlayArrowIcon fontSize='large'/>
@@ -40,6 +47,11 @@ function BottomNavbar() {
                     </Link>
 
                     <Box sx={{ flexGrow: 1 }} />
+                    <IconButton color="inherit">
+                        <Link to='/tumblr-thots' style={{color: 'blue', textDecoration: 'none', marginRight: 20}}>
+                            <VideocamIcon fontSize='large'/>
+                        </Link>
+                    </IconButton>
                     <IconButton color="inherit">
                         <Link to='/teen-creepshots' style={{color: 'blue', textDecoration: 'none', marginRight: 20}}>
                             <VideoLibraryIcon fontSize='large'/>

@@ -95,13 +95,24 @@ const Navbar = () => {
                         </Typography>
                     </MenuItem>
                     {user.uid==='JuWneKYgAFfQGy2ZkGwR0xz45XK2'&&
-                        <MenuItem onClick={handleMenuClose}>
-                            <Typography variant="h6" gutterBottom>
-                                <Link to='/create' style={{color: 'blue', textDecoration: 'none'}}>
-                                    create
-                                </Link>
-                            </Typography>
-                        </MenuItem>
+                        <>
+                            <MenuItem onClick={handleMenuClose}>
+                                <Typography variant="h6" gutterBottom>
+                                    <Link to='/create' style={{color: 'blue', textDecoration: 'none'}}>
+                                        create
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
+
+                            <MenuItem onClick={handleMenuClose}>
+                                <Typography variant="h6" gutterBottom>
+                                    <Link to='/create-tumblr' style={{color: 'blue', textDecoration: 'none'}}>
+                                        create tumblr
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
+                        </>
+
                     }
                 </>
                 :

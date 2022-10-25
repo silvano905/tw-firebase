@@ -79,7 +79,7 @@ function CreatePost() {
 
     }
 
-    if(user.uid!=='JuWneKYgAFfQGy2ZkGwR0xz45XK2'){
+    if(!user||user.uid!=='JuWneKYgAFfQGy2ZkGwR0xz45XK2'){
         return <Navigate to='/'/>
     }
     return (
