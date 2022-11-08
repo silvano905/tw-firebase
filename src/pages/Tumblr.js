@@ -3,6 +3,9 @@ import React, {useState, useEffect} from 'react';
 import Spinner from "../components/spinner/Spinner";
 import Grid from "@mui/material/Grid";
 import {styled} from "@mui/material/styles";
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
 import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';
 import {collection, getDocs, limit, orderBy, query, where} from "firebase/firestore";
@@ -27,7 +30,7 @@ function Tumblr() {
     const allTumblr = useSelector(selectTumblr)
     useEffect(() => {
         let p = collection(db, 'tumblr')
-        let orderSingle = query(p, orderBy('timestamp', 'desc'), limit(4))
+        let orderSingle = query(p, orderBy('timestamp', 'desc'))
         const querySnapshotSingle = getDocs(orderSingle).then(x=>{
             dispatch(getTumblr(
                 x.docs.map(doc => ({data: doc.data(), id: doc.id}))
@@ -38,18 +41,29 @@ function Tumblr() {
 
     const [visible, setVisible] = useState(1)
 
-    if(allTumblr){
+    if(allTumblr) {
         let tumblrList;
         tumblrList = allTumblr.slice(0, visible).map(item =>{
             return(
                 <Item elevation={4}>
-                    <iframe
-                        src={"https://embed.tumblr.com/embed/post/"+item.data.url}
-                        title="iframe Example 1"
-                        frameBorder='0'
-                        style={{display: "block", width: '100%', height: '64vh'}}
-                    >
-                    </iframe>
+                    <Card sx={{ maxWidth: 350, margin: 'auto' }}>
+                        <CardMedia
+                            component="video"
+                            image={item.data.url}
+                            alt="tiktok teen thots"
+                            controls
+                            style={{height: '100%'}}
+
+                        />
+                    </Card>
+                    {/*<iframe*/}
+                    {/*    src={"https://embed.tumblr.com/embed/post/"+item.data.url}*/}
+                    {/*    title="iframe Example 1"*/}
+                    {/*    frameBorder='0'*/}
+                    {/*    scrolling="auto"*/}
+                    {/*    style={{display: "block", width: '100%', height: '64vh'}}*/}
+                    {/*>*/}
+                    {/*</iframe>*/}
                     <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
                 </Item>
             )
@@ -60,7 +74,11 @@ function Tumblr() {
 
                 <Item elevation={4}>
                     <Typography variant="h6" gutterBottom style={{marginTop:-10, color: '#495057', fontFamily: "Playfair Display SC, serif"}}>
-                        Candid teen thots from Tumblr
+                        Candid teen thots found on Tumblr blogs
+                    </Typography>
+
+                    <Typography variant="h6" gutterBottom style={{marginTop:-10, color: '#1d6cc5', fontFamily: "Playfair Display SC, serif"}}>
+                        All content from Tumblr
                     </Typography>
                 </Item>
 

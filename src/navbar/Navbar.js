@@ -111,6 +111,14 @@ const Navbar = () => {
                                     </Link>
                                 </Typography>
                             </MenuItem>
+
+                            <MenuItem onClick={handleMenuClose}>
+                                <Typography variant="h6" gutterBottom>
+                                    <Link to='/create-pictures' style={{color: 'blue', textDecoration: 'none'}}>
+                                        create pictures
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
                         </>
 
                     }

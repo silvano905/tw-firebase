@@ -7,10 +7,11 @@ import alertsReducer from '../redux/alerts/alertsSlice'
 import compilationsReducer from '../redux/compilations/compilationsSlice'
 import homeReducer from '../redux/home/homeSlice'
 import tumblrReducer from '../redux/tumblr/tumblrSlice'
+import picturesReducer from '../redux/pictures/picturesSlice'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user', 'posts', 'compilations', 'home', 'tumblr']
+    whitelist: ['user', 'posts', 'compilations', 'home', 'tumblr', 'pictures']
 };
 
 const rootReducer = combineReducers({
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     alerts: alertsReducer,
     compilations: compilationsReducer,
     home: homeReducer,
-    tumblr: tumblrReducer
+    tumblr: tumblrReducer,
+    pictures: picturesReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

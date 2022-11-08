@@ -15,6 +15,7 @@ import Posts from "./pages/Posts";
 import Cart from "./pages/Cart";
 import Pictures from "./pages/Pictures";
 import CreateTumblr from "./pages/CreateTumblr"
+import CreatePicture from "./pages/CreatePicture";
 function App() {
   const userAuth = useSelector(selectUser)
 
@@ -44,6 +45,7 @@ function App() {
             <Route path='/tiktok-thots' element={<VideoCompilations />} />
             <Route path='/create' element={<CreatePost />} />
             <Route path='/create-tumblr' element={<CreateTumblr />} />
+            <Route path='/create-pictures' element={<CreatePicture />} />
             <Route path='/login' element={<Login />} />
             <Route path='/teen-thot-pictures' element={<Pictures />} />
             <Route path='/tumblr-thots' element={<Tumblr />} />
