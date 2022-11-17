@@ -10,6 +10,16 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useTheme } from '@mui/material/styles';
+
 import {collection, getDocs, limit, orderBy, query, where} from "firebase/firestore";
 import {db} from "../config-firebase/firebase";
 import {getPictures, selectPictures} from "../redux/pictures/picturesSlice";
@@ -40,6 +50,21 @@ function Pictures() {
         })
     }, [])
 
+    //image full screen on click
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+    const [open, setOpen] = React.useState(false);
+    const [currentImage, setCurrentImage] = React.useState(null);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    //end
+
     const [visible, setVisible] = useState(1)
 
     if(allPictures){
@@ -47,12 +72,43 @@ function Pictures() {
         picturesList = allPictures.slice(0, visible).map(item =>{
             return(
                 <Item elevation={4}>
-                    <Card sx={{ maxWidth: 350, margin: 'auto' }}>
+                    <Card sx={{ maxWidth: 450, margin: 'auto' }}>
                         <CardMedia
+                            onClick={()=>{
+                                setCurrentImage(item)
+                                setOpen(true)
+                            }}
                             component="img"
                             image={"https://imagedelivery.net/k0yUaL8t05k_eXwwUxAOHw/"+item.data.url+'/public'}
                             alt="tiktok teen thots"
                         />
+                        {open&&
+                            <div>
+                                <Dialog
+                                    fullScreen={fullScreen}
+                                    aria-labelledby="responsive-dialog-title"
+                                    open={open} onClose={()=>{
+                                    setCurrentImage(null)
+                                    setOpen(false)
+                                }}
+                                >
+                                    <DialogContent>
+                                        <CardMedia
+                                            component="img"
+                                            image={"https://imagedelivery.net/k0yUaL8t05k_eXwwUxAOHw/"+currentImage.data.url+'/public'}
+                                            alt="tiktok teen thots"
+                                        />
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={()=>{
+                                            setCurrentImage(null)
+                                            setOpen(false)
+                                        }}>Close</Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </div>
+                        }
+
                     </Card>
                     <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
                 </Item>

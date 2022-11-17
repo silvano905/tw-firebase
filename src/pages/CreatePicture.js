@@ -70,7 +70,7 @@ function CreatePicture() {
                     <Grid item sm={11} lg={7} xs={11}>
                         <Item elevation={4}>
                             <Typography variant="h5" gutterBottom style={{color: 'black', marginTop: 10}}>
-                                Upload Picture URL
+                                Add picture ID (not url)
                             </Typography>
 
                             <form onSubmit={register} style={{marginTop: 10}}>
