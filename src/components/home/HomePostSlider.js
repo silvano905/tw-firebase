@@ -50,19 +50,21 @@ const HomePostSlider = ({posts, currentUser}) => {
                         Teen homemade twerk videos
                     </Typography>
 
-                    <List       sx={{
-                        width: '100%',
-                        maxWidth: 360,
-                        bgcolor: 'background.paper',
-                        position: 'relative',
-                        overflow: 'auto',
-                        maxHeight: 300,
-                        '& ul': { padding: 0 },
-                    }}>
-                        <li>
-                            {quinielasList}
-                        </li>
-                    </List>
+                    <div style={{display: 'flex', alignItems: "center", justifyContent: "center", margin: "auto"}}>
+                        <List       sx={{
+                            width: '100%',
+                            maxWidth: 460,
+                            bgcolor: 'background.paper',
+                            position: 'relative',
+                            overflow: 'auto',
+                            maxHeight: 400,
+                            '& ul': { padding: 0 },
+                        }}>
+                            <li>
+                                {quinielasList}
+                            </li>
+                        </List>
+                    </div>
                     <div style={{alignItems: "center", alignContent: "center", textAlign: "center", margin: '10px 0 10px 0'}}>
                         <Button endIcon={<PlayCircleIcon/>} variant="contained" href={'/teen-creepshots'}>
                             More twerk Videos

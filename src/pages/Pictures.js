@@ -117,14 +117,16 @@ function Pictures() {
 
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-
-                <Item elevation={4}>
-                    <Typography variant="h6" gutterBottom style={{marginTop:-10, color: '#495057', fontFamily: "Playfair Display SC, serif"}}>
-                        Teen thot pictures
-                    </Typography>
-                </Item>
-
                 <Grid item sm={11} lg={10} xs={11}>
+
+                    <Item elevation={4}>
+                        <Typography variant="h6" gutterBottom style={{marginTop:-10, color: '#495057', fontFamily: "Playfair Display SC, serif"}}>
+                            Teen thot pictures
+                        </Typography>
+                    </Item>
+                </Grid>
+
+                <Grid item sm={5} lg={5} xs={11}>
                     {picturesList}
                 </Grid>
 

@@ -101,20 +101,20 @@ function Post() {
         if(unwatched&&allUnwatchedPosts){
             quinielasList = allUnwatchedPosts.slice(0, visible).map(item => {
                 return (
-                    <>
+                    <Grid item sm={4} lg={4} xs={12}>
                         <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
-                    </>
+                    </Grid>
                 )
             })
         }else {
             quinielasList = allPosts.slice(0, lastPostPlayedId&&scrollDown?elementPosition:elementPosition+visible).map(item => {
                 return (
-                    <>
+                    <Grid item sm={4} lg={4} xs={12}>
                         <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
                         <div ref={pk}></div>
-                    </>
+                    </Grid>
                 )
             })
         }
@@ -160,8 +160,10 @@ function Post() {
                     </Item>
                 </Grid>
 
-                <Grid item sm={11} lg={10} xs={11}>
-                    {quinielasList}
+                <Grid item sm={4} lg={12} xs={11}>
+                    <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+                        {quinielasList}
+                    </Grid>
                 </Grid>
 
             </Grid>

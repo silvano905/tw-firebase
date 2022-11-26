@@ -110,20 +110,20 @@ function VideoCompilations() {
         if(unwatched&&allUnwatchedCompilations){
             quinielasList = allUnwatchedCompilations.slice(0, visible).map(item => {
                 return (
-                    <>
+                    <Grid item sm={4} lg={4} xs={12}>
                         <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={showMoreItems}/>
-                    </>
+                    </Grid>
                 )
             })
         }else {
             quinielasList = allPosts.slice(0, lastCompilationPlayedId&&scrollDown?elementPosition:elementPosition+visible).map(item => {
                 return (
-                    <>
+                    <Grid item sm={4} lg={4} xs={12}>
                         <VideoComp post={item} currentUser={currentUser} userData={userData}/>
                         <Waypoint onEnter={showMoreItems}/>
                         <div ref={pk}></div>
-                    </>
+                    </Grid>
                 )
             })
         }
@@ -171,7 +171,9 @@ function VideoCompilations() {
                 </Grid>
 
                 <Grid item sm={11} lg={10} xs={11}>
-                    {quinielasList}
+                    <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+                        {quinielasList}
+                    </Grid>
                 </Grid>
 
             </Grid>

@@ -45,27 +45,29 @@ function Tumblr() {
         let tumblrList;
         tumblrList = allTumblr.slice(0, visible).map(item =>{
             return(
-                <Item elevation={4}>
-                    <Card sx={{ maxWidth: 350, margin: 'auto' }}>
-                        <CardMedia
-                            component="video"
-                            image={item.data.url}
-                            alt="tiktok teen thots"
-                            controls
-                            style={{height: '100%'}}
+                <Grid item sm={5} lg={5} xs={11}>
+                    <Item elevation={4}>
+                        <Card sx={{ maxWidth: 350, margin: 'auto' }}>
+                            <CardMedia
+                                component="video"
+                                image={item.data.url}
+                                alt="tiktok teen thots"
+                                controls
+                                style={{height: '100%'}}
 
-                        />
-                    </Card>
-                    {/*<iframe*/}
-                    {/*    src={"https://embed.tumblr.com/embed/post/"+item.data.url}*/}
-                    {/*    title="iframe Example 1"*/}
-                    {/*    frameBorder='0'*/}
-                    {/*    scrolling="auto"*/}
-                    {/*    style={{display: "block", width: '100%', height: '64vh'}}*/}
-                    {/*>*/}
-                    {/*</iframe>*/}
-                    <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
-                </Item>
+                            />
+                        </Card>
+                        {/*<iframe*/}
+                        {/*    src={"https://embed.tumblr.com/embed/post/"+item.data.url}*/}
+                        {/*    title="iframe Example 1"*/}
+                        {/*    frameBorder='0'*/}
+                        {/*    scrolling="auto"*/}
+                        {/*    style={{display: "block", width: '100%', height: '64vh'}}*/}
+                        {/*>*/}
+                        {/*</iframe>*/}
+                        <Waypoint onEnter={()=>setVisible(prevState => prevState + 1)}/>
+                    </Item>
+                </Grid>
             )
         })
 
@@ -82,8 +84,10 @@ function Tumblr() {
                     </Typography>
                 </Item>
 
-                <Grid item sm={11} lg={10} xs={11}>
-                    {tumblrList}
+                <Grid item sm={11} lg={11} xs={11}>
+                    <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+                        {tumblrList}
+                    </Grid>
                 </Grid>
 
 

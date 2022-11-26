@@ -55,19 +55,23 @@ const HomeCompilationsSlider = ({posts, currentUser}) => {
                         <Avatar variant="square" alt="Remy Sharp" src={'https://chicagocarhelp.s3.us-east-2.amazonaws.com/trillerwhiteArtboard+1.png'}/>
                     </div>
 
-                    <List       sx={{
-                        width: '100%',
-                        maxWidth: 360,
-                        bgcolor: 'background.paper',
-                        position: 'relative',
-                        overflow: 'auto',
-                        maxHeight: 300,
-                        '& ul': { padding: 0 },
-                    }}>
-                        <li>
-                            {quinielasList}
-                        </li>
-                    </List>
+                    <div style={{display: 'flex', alignItems: "center", justifyContent: "center", margin: "auto"}}>
+                        <List       sx={{
+                            width: '100%',
+                            maxWidth: 460,
+                            bgcolor: 'background.paper',
+                            position: 'relative',
+                            overflow: 'auto',
+                            maxHeight: 400,
+                            '& ul': { padding: 0 },
+                        }}
+                        >
+                            <li>
+                                {quinielasList}
+                            </li>
+                        </List>
+                    </div>
+
                     <div style={{alignItems: "center", alignContent: "center", textAlign: "center", margin: '10px 0 10px 0'}}>
                         <Button endIcon={<PlayCircleIcon/>} variant="contained" href={'/tiktok-thots'}>
                             More teen thots videos
