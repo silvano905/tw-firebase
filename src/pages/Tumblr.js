@@ -8,11 +8,13 @@ import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from "@mui/material/Paper";
 import Typography from '@mui/material/Typography';
-import {collection, getDocs, limit, orderBy, query, where} from "firebase/firestore";
+import {collection, getDocs, limit, orderBy, query, where, doc, deleteDoc} from "firebase/firestore";
 import {db} from "../config-firebase/firebase";
 import {getTumblr, selectTumblr} from "../redux/tumblr/tumblrSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {Waypoint} from "react-waypoint";
+import Button from '@mui/material/Button';
+import {selectUser} from "../redux/user/userSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -28,6 +30,8 @@ const Item = styled(Paper)(({ theme }) => ({
 function Tumblr() {
     const dispatch = useDispatch()
     const allTumblr = useSelector(selectTumblr)
+    const currentUser = useSelector(selectUser)
+
     useEffect(() => {
         let p = collection(db, 'tumblr')
         let orderSingle = query(p, orderBy('timestamp', 'desc'))
@@ -57,6 +61,12 @@ function Tumblr() {
 
                             />
                         </Card>
+                        {currentUser&&currentUser.uid==='JuWneKYgAFfQGy2ZkGwR0xz45XK2'&&
+                            <Button style={{margin: 5}} variant="outlined" size="small" onClick={()=>{
+                                deleteDoc(doc(db, 'tumblr', item.id)).then()
+                            }}>delete</Button>
+                        }
+
                         {/*<iframe*/}
                         {/*    src={"https://embed.tumblr.com/embed/post/"+item.data.url}*/}
                         {/*    title="iframe Example 1"*/}
@@ -80,7 +90,7 @@ function Tumblr() {
                     </Typography>
 
                     <Typography variant="h6" gutterBottom style={{marginTop:-10, color: '#1d6cc5', fontFamily: "Playfair Display SC, serif"}}>
-                        All content from Tumblr
+                        All content from Tumblr +18
                     </Typography>
                 </Item>
 

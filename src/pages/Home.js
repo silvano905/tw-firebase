@@ -63,10 +63,10 @@ function Home() {
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
 
                 <Helmet>
-                    <title>Teen twerk videos compilations | Tiktokteenthots watch the best teen twerking videos</title>
+                    <title>Teen Thots - Tiktok Thots - Triller Thots | tiktokteenthots</title>
                     <meta
                         name="description"
-                        content="Teen twerking videos from Instagram and Youtube. Top teen twerk videos for free."
+                        content="Teen thots from Instagram, Tiktok and Triller. Top tiktok thots and Instagram Thots twerking."
                     />
                 </Helmet>
 

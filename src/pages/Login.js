@@ -178,7 +178,7 @@ function Login() {
                         <Item elevation={4}>
                             <img src="https://chicagocarhelp.s3.us-east-2.amazonaws.com/tz1Artboard+1.png" alt="logo" style={{width: 45, height: "auto"}}/>
                             <Typography style={{color: 'black', fontSize:'14px'}}>
-                                Copyright © 2018-2022 Quinielasligamx. All rights reserved.
+                                Copyright © 2018-2022 Tiktokteenthots. All rights reserved.
                             </Typography>
                             {/*<Grid container direction="row" justify="center" alignItems="center">*/}
                             {/*    <Grid item xs={4} sm={4} lg={4}>*/}

@@ -121,7 +121,7 @@ function Pictures() {
 
                     <Item elevation={4}>
                         <Typography variant="h6" gutterBottom style={{marginTop:-10, color: '#495057', fontFamily: "Playfair Display SC, serif"}}>
-                            Teen thot pictures
+                            Teen thots pictures from Instagram +18
                         </Typography>
                     </Item>
                 </Grid>
