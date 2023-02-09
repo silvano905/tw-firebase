@@ -1,5 +1,4 @@
 import {Routes, Route, Link, Navigate, Outlet} from "react-router-dom";
-import Home from "./pages/Home";
 import Navbar from "./navbar/Navbar";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -10,12 +9,13 @@ import {useSelector} from "react-redux";
 import {selectUser} from "./redux/user/userSlice";
 import CreatePost from "./pages/CreatePost";
 import Tumblr from "./pages/Tumblr";
-import VideoCompilations from "./pages/VideoCompilations";
-import Posts from "./pages/Posts";
 import Cart from "./pages/Cart";
 import Pictures from "./pages/Pictures";
 import CreateTumblr from "./pages/CreateTumblr"
 import CreatePicture from "./pages/CreatePicture";
+import Testing from "./pages/Testing";
+import PlayVideoById from "./pages/PlayVideoById";
+import TestingCompilations from "./pages/TestingCompilations";
 function App() {
   const userAuth = useSelector(selectUser)
 
@@ -39,10 +39,10 @@ function App() {
             <Route element={<ProtectedRoute user={userAuth} />}>
                 <Route path="account" element={<Account />} />
             </Route>
-            <Route path='/' element={<Home />} />
-            <Route path='/teen-creepshots' element={<Posts />} />
+            <Route path='/' element={<Testing />} />
+            <Route path='/video/:id' element={<PlayVideoById />} />
             <Route path='/premium' element={<Cart />} />
-            <Route path='/tiktok-thots' element={<VideoCompilations />} />
+            <Route path='/tiktok-thots' element={<TestingCompilations />} />
             <Route path='/create' element={<CreatePost />} />
             <Route path='/create-tumblr' element={<CreateTumblr />} />
             <Route path='/create-pictures' element={<CreatePicture />} />

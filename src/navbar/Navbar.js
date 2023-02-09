@@ -87,13 +87,6 @@ const Navbar = () => {
 
             {user?
                 <>
-                    <MenuItem onClick={handleMenuClose}>
-                        <Typography variant="h6" gutterBottom>
-                            <Link to='/account' style={{color: 'blue', textDecoration: 'none'}}>
-                                Account
-                            </Link>
-                        </Typography>
-                    </MenuItem>
                     {user.uid==='JuWneKYgAFfQGy2ZkGwR0xz45XK2'&&
                         <>
                             <MenuItem onClick={handleMenuClose}>

@@ -13,6 +13,7 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import {useSelector} from "react-redux";
 import {selectUser} from "../redux/user/userSlice";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const StyledFab = styled(Fab)({
     position: 'absolute',
     zIndex: 1,
@@ -53,8 +54,8 @@ function BottomNavbar() {
                         </Link>
                     </IconButton>
                     <IconButton color="inherit">
-                        <Link to='/teen-creepshots' style={{color: 'blue', textDecoration: 'none', marginRight: 20}}>
-                            <VideoLibraryIcon fontSize='large'/>
+                        <Link to='/account' style={{color: 'blue', textDecoration: 'none', marginRight: 20}}>
+                            <AccountCircleIcon fontSize='large'/>
                         </Link>
                     </IconButton>
                 </Toolbar>
