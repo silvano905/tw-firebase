@@ -40,7 +40,7 @@ const VideoCompTesting = ({post}) => {
             </Typography>
 
 
-            <div style={{position: "relative"}}>
+            <div style={{position: "relative", overflow: 'hidden', display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <Link to={`/video/${post.data.videoId}`} state={{ obj: post }} style={{textDecoration: 'none'}}>
                     <img src={"https://customer-902gofmdxw3ulpi6.cloudflarestream.com/" + post.data.videoId + "/thumbnails/thumbnail.gif?time=1s&height=500&duration=4s"} />
                     <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,

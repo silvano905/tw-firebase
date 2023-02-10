@@ -110,7 +110,7 @@ function Testing() {
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
                 <Grid item sm={11} lg={10} xs={11}>
                     <Item elevation={4}>
-                        <Typography variant="h6" gutterBottom style={{
+                        <Typography variant="h5" gutterBottom style={{
                             background: 'linear-gradient(to right, #ff0000, #ffff00)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
@@ -118,7 +118,7 @@ function Testing() {
                         }}>
                             Tiktok Thots
                         </Typography>
-                        <Typography variant="h6" gutterBottom style={{
+                        <Typography variant="h5" gutterBottom style={{
                             background: 'linear-gradient(to right, #9f86c0, #231942)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
@@ -126,7 +126,7 @@ function Testing() {
                         }}>
                             Triller Thots
                         </Typography>
-                        <Typography variant="h6" gutterBottom style={{
+                        <Typography variant="h5" gutterBottom style={{
                             background: 'linear-gradient(to right, #f72585, #231942)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
