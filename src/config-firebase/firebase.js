@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
-const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 import { getStorage, ref, deleteObject } from "firebase/storage";
+const { initializeAppCheck, ReCaptchaV3Provider } = require("firebase/app-check");
 
 const firebaseConfig = {
     apiKey: "AIzaSyBtxYrVceF3lb7CJHrahCspCiKL0nPX35I",
