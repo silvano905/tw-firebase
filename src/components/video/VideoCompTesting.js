@@ -42,7 +42,7 @@ const VideoCompTesting = ({post}) => {
 
             <div style={{position: "relative", overflow: 'hidden', display: "flex", alignItems: "center", justifyContent: "center"}}>
                 <Link to={`/video/${post.data.videoId}`} state={{ obj: post }} style={{textDecoration: 'none'}}>
-                    <img src={"https://customer-902gofmdxw3ulpi6.cloudflarestream.com/" + post.data.videoId + "/thumbnails/thumbnail.gif?time=1s&height=500&duration=4s"} />
+                    <img src={"https://customer-902gofmdxw3ulpi6.cloudflarestream.com/" + post.data.videoId + "/thumbnails/thumbnail.gif?time=1s&height=500&width=350&duration=4s"} style={{width: '100%'}} />
                     <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
                         position:"absolute",
                         textAlign: "center",

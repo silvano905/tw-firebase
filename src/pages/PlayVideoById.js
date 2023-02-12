@@ -13,7 +13,7 @@ import {
     increment,
     arrayUnion, deleteDoc
 } from "firebase/firestore";
-
+import ReactGA from "react-ga4";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -100,6 +100,11 @@ const PlayVideoById = () => {
     const post = location.state.obj
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        ReactGA.initialize('G-PH7BM56H1X')
+        ReactGA.send({ hitType: "pageview", page: location.pathname })
+    }, [])
+
     const [index, setIndex] = useState(0)
     const loadNextVideo = () =>{
         if(index<post.data.videoIds.length-1){
@@ -129,6 +134,10 @@ const PlayVideoById = () => {
     const onVideoPlay = (e) => {
         e.preventDefault()
         //increase views by 1
+        ReactGA.event({
+            category: 'Video',
+            action: 'watched a video',
+        });
         let refDoc = doc(db, 'posts', post.id)
         updateDoc(refDoc, {
             views: increment(1)
