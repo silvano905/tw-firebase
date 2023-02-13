@@ -189,7 +189,7 @@ const PlayVideoById = () => {
                     </Button>
                     {currentUser&&currentUser.uid==='JuWneKYgAFfQGy2ZkGwR0xz45XK2'&&
                         <Button style={{margin: 5}} variant="outlined" size="small" onClick={()=>{
-                            deleteDoc(doc(db, 'tumblr', post.id)).then(()=><Navigate to='/'/>)
+                            deleteDoc(doc(db, 'posts', post.id)).then(()=><Navigate to='/'/>)
                         }}>delete</Button>
                     }
 

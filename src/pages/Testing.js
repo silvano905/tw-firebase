@@ -155,7 +155,7 @@ function Testing() {
                     </div>
                 }
 
-                <Grid item sm={4} lg={12} xs={11}>
+                <Grid item sm={11} lg={12} xs={11}>
                     <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
                         {quinielasList}
                     </Grid>

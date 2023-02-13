@@ -74,7 +74,7 @@ function CreatePost() {
             likedByUser: [],
             timestamp: serverTimestamp()
         }).then(()=>{
-            setFormData({title: '', premium: false, folder: '', views: 0, videoId: '', likes: 0})
+            setFormData({title: '', premium: false, folder: '', views: 0, videoId: '', likes: 0, cdn: ''})
             setVideoIds([])
             setDisableButton(false)
         })
