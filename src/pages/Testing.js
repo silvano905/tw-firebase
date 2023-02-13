@@ -97,7 +97,7 @@ function Testing() {
     if(allPosts&&allPosts.length>0) {
             quinielasList = allPosts.slice(0, lastPostPlayedId&&scrollDown?elementPosition+1:visible).map(item => {
                 return (
-                    <Grid item sm={4} lg={4} xs={12}>
+                    <Grid item sm={6} lg={6} xs={12}>
                         <VideoCompTesting post={item} currentUser={currentUser} userData={userData}/>
                     </Grid>
                 )
