@@ -39,8 +39,7 @@ const VideoCompTesting = ({post}) => {
                 {post.data.title}
             </Typography>
 
-
-            {!post.cdn&&
+            {post.data.cdn==='cloudflare'?
                 <div style={{position: "relative", overflow: 'hidden', display: "flex", alignItems: "center", justifyContent: "center"}}>
                     <Link to={`/video/${post.data.videoId}`} state={{ obj: post }} style={{textDecoration: 'none'}}>
                         <img src={"https://customer-902gofmdxw3ulpi6.cloudflarestream.com/" + post.data.videoId + "/thumbnails/thumbnail.gif?time=1s&height=500&width=350&duration=4s"} style={{width: '100%'}} />
@@ -54,6 +53,10 @@ const VideoCompTesting = ({post}) => {
                         </PlayCircleFilledWhiteIcon>
                     </Link>
                 </div>
+                :
+                <iframe title="Tiktok thots" src={"https://player.vimeo.com/video/"+post.data.videoId} width="100%"
+                        height="200" frameBorder="0" allowFullScreen></iframe>
+
             }
 
 
