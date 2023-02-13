@@ -41,7 +41,8 @@ function CreatePost() {
         likes:0,
         videoId: '',
         premium: false,
-        folder: ''
+        folder: '',
+        cdn: ''
     });
 
     const [disableButton, setDisableButton] = useState(false)
@@ -54,7 +55,7 @@ function CreatePost() {
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const { title, premium, videoId, views, folder, likes } = formData;
+    const { title, premium, videoId, views, folder, likes, cdn } = formData;
 
     const register = (e) => {
         e.preventDefault()
@@ -66,6 +67,7 @@ function CreatePost() {
             views: parseInt(views),
             premium: premium,
             section: videoIds.length>0?'compilations':'single',
+            cdn:'',
             watched: [],
             likes: likes,
             folder: folder,
@@ -127,6 +129,24 @@ function CreatePost() {
                                                 <MenuItem value='tiktok'>TikTok</MenuItem>
                                                 <MenuItem value='instagram'>Instagram</MenuItem>
                                                 <MenuItem value='triller'>Triller</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </Grid>
+
+                                    <Grid item sm={11} lg={7} xs={11}>
+                                        <FormControl style={{width: 200}}>
+                                            <InputLabel id="demo-simple-select-label">CDN</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={cdn}
+                                                label="Age"
+                                                name='cdn'
+                                                required
+                                                onChange={onChange}
+                                            >
+                                                <MenuItem value='cloudflare'>Cloudflare</MenuItem>
+                                                <MenuItem value='vimeo'>Vimeo</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
