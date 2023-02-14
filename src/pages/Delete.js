@@ -8,7 +8,7 @@ function Delete() {
         return (
 
                 <video>
-                    <source src="https://d2v5r2ngep9otd.cloudfront.net/popita1.mp4" type="video/mp4"/>
+                    <source src="https://dysv5aqa93rvk.cloudfront.net/popita2.mp4" type="video/mp4"/>
                 </video>
 
         )
