@@ -164,8 +164,17 @@ const PlayVideoById = () => {
                         </Typography>
                         <Stream controls src={post.data.videoIds[index]} onPlay={onVideoPlay} onCanPlay={() => setLoading(false)} />
                     </>
-                    :
-                    <Stream controls src={params.id} onPlay={onVideoPlay} onCanPlay={() => setLoading(false)} />
+                    :post.data.cdn==='cloudflare'?
+                        <Stream controls src={params.id} onPlay={onVideoPlay} onCanPlay={() => setLoading(false)} />
+                        :
+                            <Card sx={{ display: 'flex', margin: 5 }}>
+                                <CardMedia
+                                    component="video"
+                                    image={'https://d3sog3sqr61u3b.cloudfront.net/'+params.id}
+                                    title="tiktok thots"
+                                    controls
+                                />
+                            </Card>
 
                 }
 

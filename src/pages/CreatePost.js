@@ -40,6 +40,7 @@ function CreatePost() {
         views: 0,
         likes:0,
         videoId: '',
+        thumbnail: '',
         premium: false,
         folder: '',
         cdn: ''
@@ -55,7 +56,7 @@ function CreatePost() {
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const { title, premium, videoId, views, folder, likes, cdn } = formData;
+    const { title, premium, videoId, views, folder, likes, cdn, thumbnail } = formData;
 
     const register = (e) => {
         e.preventDefault()
@@ -67,7 +68,8 @@ function CreatePost() {
             views: parseInt(views),
             premium: premium,
             section: videoIds.length>0?'compilations':'single',
-            cdn:'',
+            cdn:cdn,
+            videoThumbnail: thumbnail,
             watched: [],
             likes: likes,
             folder: folder,
@@ -147,9 +149,28 @@ function CreatePost() {
                                             >
                                                 <MenuItem value='cloudflare'>Cloudflare</MenuItem>
                                                 <MenuItem value='vimeo'>Vimeo</MenuItem>
+                                                <MenuItem value='aws'>AWS</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>
+
+                                    {cdn==='aws'&&
+                                        <Grid item sm={11} lg={7} xs={11}>
+                                            <FormControl>
+                                                <TextField
+                                                    fullWidth
+                                                    variant="outlined"
+                                                    id="standard-basics"
+                                                    label="thumbnail"
+                                                    name="thumbnail"
+                                                    value={thumbnail}
+                                                    onChange={onChange}
+                                                    style={{marginTop: 10}}
+                                                    required
+                                                />
+                                            </FormControl>
+                                        </Grid>
+                                    }
 
 
                                     <Grid item sm={11} lg={7} xs={11}>

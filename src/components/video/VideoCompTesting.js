@@ -54,9 +54,25 @@ const VideoCompTesting = ({post}) => {
                     </Link>
                 </div>
                 :
+                post.data.cdn==='vimeo'?
                 <iframe title="Tiktok thots" src={"https://player.vimeo.com/video/"+post.data.videoId} width="100%"
                         height="200" frameBorder="0" allowFullScreen></iframe>
-
+                    :post.data.cdn==='aws'?
+                        <div style={{position: "relative", overflow: 'hidden', display: "flex", alignItems: "center", justifyContent: "center"}}>
+                            <Link to={`/video/${post.data.videoId}`} state={{ obj: post }} style={{textDecoration: 'none'}}>
+                                <img src={"https://d3sog3sqr61u3b.cloudfront.net/" + post.data.thumbnail} style={{width: '100%'}} />
+                                <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
+                                    position:"absolute",
+                                    textAlign: "center",
+                                    fontSize: 100,
+                                    top: '40%',
+                                    color: "white",
+                                    width: "100%"}}>play
+                                </PlayCircleFilledWhiteIcon>
+                            </Link>
+                        </div>
+                        :
+                        null
             }
 
 
