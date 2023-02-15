@@ -169,6 +169,7 @@ const PlayVideoById = () => {
                         :
                             <Card sx={{ display: 'flex', margin: 5 }}>
                                 <CardMedia
+                                    onCanPlay={() => setLoading(false)}
                                     component="video"
                                     image={'https://d3sog3sqr61u3b.cloudfront.net/'+params.id}
                                     title="tiktok thots"
