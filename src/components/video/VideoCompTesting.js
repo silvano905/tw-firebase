@@ -21,6 +21,8 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import {useDispatch} from "react-redux";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -60,7 +62,7 @@ const VideoCompTesting = ({post}) => {
                     :post.data.cdn==='aws'?
                         <div style={{position: "relative", overflow: 'hidden', display: "flex", alignItems: "center", justifyContent: "center"}}>
                             <Link to={`/video/${post.data.videoId}`} state={{ obj: post }} style={{textDecoration: 'none'}}>
-                                <img src={"https://d3sog3sqr61u3b.cloudfront.net/" + post.data.thumbnail} style={{width: '100%'}} />
+                                <img src={"https://d3sog3sqr61u3b.cloudfront.net/" + post.data.videoThumbnail} style={{width: '100%'}} />
                                 <PlayCircleFilledWhiteIcon fontSize='inherit' style={{    left: 0,
                                     position:"absolute",
                                     textAlign: "center",
