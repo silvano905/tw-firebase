@@ -42,7 +42,7 @@ function CreatePost() {
         videoId: '',
         thumbnail: '',
         premium: false,
-        folder: '',
+        section: '',
         cdn: ''
     });
 
@@ -56,7 +56,7 @@ function CreatePost() {
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const { title, premium, videoId, views, folder, likes, cdn, thumbnail } = formData;
+    const { title, premium, videoId, views, likes, cdn, thumbnail, section } = formData;
 
     const register = (e) => {
         e.preventDefault()
@@ -67,16 +67,15 @@ function CreatePost() {
             videoIds: videoIds,
             views: parseInt(views),
             premium: premium,
-            section: videoIds.length>0?'compilations':'single',
+            section: section,
             cdn:cdn,
             videoThumbnail: thumbnail,
             watched: [],
             likes: likes,
-            folder: folder,
             likedByUser: [],
             timestamp: serverTimestamp()
         }).then(()=>{
-            setFormData({title: '', premium: false, folder: '', views: 0, videoId: '', likes: 0, cdn: ''})
+            setFormData({title: '', premium: false, section: '', views: 0, videoId: '', likes: 0, cdn: ''})
             setVideoIds([])
             setDisableButton(false)
         })
@@ -118,19 +117,18 @@ function CreatePost() {
 
                                     <Grid item sm={11} lg={7} xs={11}>
                                         <FormControl style={{width: 200}}>
-                                            <InputLabel id="demo-simple-select-label">Folder</InputLabel>
+                                            <InputLabel id="demo-simple-select-label">Section</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-label"
                                                 id="demo-simple-select"
-                                                value={folder}
+                                                value={section}
                                                 label="Age"
-                                                name='folder'
+                                                name='section'
                                                 required
                                                 onChange={onChange}
                                             >
-                                                <MenuItem value='tiktok'>TikTok</MenuItem>
-                                                <MenuItem value='instagram'>Instagram</MenuItem>
-                                                <MenuItem value='triller'>Triller</MenuItem>
+                                                <MenuItem value='single'>Single</MenuItem>
+                                                <MenuItem value='clips'>Clips</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </Grid>

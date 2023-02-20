@@ -41,7 +41,7 @@ function BottomNavbar() {
                             <CollectionsIcon fontSize='large'/>
                         </Link>
                     </IconButton>
-                    <Link to='/tiktok-thots' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
+                    <Link to='/' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
                         <StyledFab aria-label="add">
                             <PlayArrowIcon fontSize='large'/>
                         </StyledFab>

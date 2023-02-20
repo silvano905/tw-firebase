@@ -16,6 +16,7 @@ import CreatePicture from "./pages/CreatePicture";
 import Testing from "./pages/Testing";
 import PlayVideoById from "./pages/PlayVideoById";
 import TestingCompilations from "./pages/TestingCompilations";
+import Clips from "./pages/Clips";
 function App() {
   const userAuth = useSelector(selectUser)
 
@@ -40,6 +41,7 @@ function App() {
                 <Route path="account" element={<Account />} />
             </Route>
             <Route path='/' element={<Testing />} />
+            <Route path='/clips' element={<Clips />} />
             <Route path='/video/:id' element={<PlayVideoById />} />
             <Route path='/premium' element={<Cart />} />
             <Route path='/tiktok-thots' element={<TestingCompilations />} />
