@@ -33,29 +33,29 @@ function BottomNavbar() {
                 <Toolbar style={{background: "ghostwhite"}}>
                     <IconButton color="inherit" aria-label="open drawer">
                         <Link to='/' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
-                            <HomeIcon fontSize='large'/>
+                            <HomeIcon fontSize='large' style={{color: '#9bb6a6'}}/>
                         </Link>
                     </IconButton>
                     <IconButton color="inherit" aria-label="open drawer">
                         <Link to='/teen-thot-pictures' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
-                            <CollectionsIcon fontSize='large'/>
+                            <CollectionsIcon fontSize='large' style={{color: '#9bb6a6'}}/>
                         </Link>
                     </IconButton>
                     <Link to='/tiktok-thots' style={{color: 'blue', textDecoration: 'none', marginLeft: 20}}>
                         <StyledFab aria-label="add">
-                            <PlayArrowIcon fontSize='large'/>
+                            <PlayArrowIcon fontSize='large' style={{ color: "orangered"}}/>
                         </StyledFab>
                     </Link>
 
                     <Box sx={{ flexGrow: 1 }} />
                     <IconButton color="inherit">
                         <Link to='/tumblr-thots' style={{color: 'blue', textDecoration: 'none', marginRight: 20}}>
-                            <VideocamIcon fontSize='large'/>
+                            <VideocamIcon fontSize='large' style={{color: '#9bb6a6'}}/>
                         </Link>
                     </IconButton>
                     <IconButton color="inherit">
                         <Link to='/account' style={{color: 'blue', textDecoration: 'none', marginRight: 20}}>
-                            <AccountCircleIcon fontSize='large'/>
+                            <AccountCircleIcon fontSize='large' style={{color: '#9bb6a6'}}/>
                         </Link>
                     </IconButton>
                 </Toolbar>

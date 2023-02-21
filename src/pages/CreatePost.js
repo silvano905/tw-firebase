@@ -42,7 +42,6 @@ function CreatePost() {
         videoId: '',
         thumbnail: '',
         premium: false,
-        section: '',
         cdn: ''
     });
 
@@ -56,7 +55,7 @@ function CreatePost() {
     const onChange = (e) =>
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const { title, premium, videoId, views, likes, cdn, thumbnail, section } = formData;
+    const { title, premium, videoId, views, likes, cdn, thumbnail } = formData;
 
     const register = (e) => {
         e.preventDefault()
@@ -67,7 +66,7 @@ function CreatePost() {
             videoIds: videoIds,
             views: parseInt(views),
             premium: premium,
-            section: section,
+            section: 'single',
             cdn:cdn,
             videoThumbnail: thumbnail,
             watched: [],
@@ -75,7 +74,7 @@ function CreatePost() {
             likedByUser: [],
             timestamp: serverTimestamp()
         }).then(()=>{
-            setFormData({title: '', premium: false, section: '', views: 0, videoId: '', likes: 0, cdn: ''})
+            setFormData({title: '', premium: false, views: 0, videoId: '', likes: 0, cdn: ''})
             setVideoIds([])
             setDisableButton(false)
         })
@@ -115,23 +114,6 @@ function CreatePost() {
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid item sm={11} lg={7} xs={11}>
-                                        <FormControl style={{width: 200}}>
-                                            <InputLabel id="demo-simple-select-label">Section</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={section}
-                                                label="Age"
-                                                name='section'
-                                                required
-                                                onChange={onChange}
-                                            >
-                                                <MenuItem value='single'>Single</MenuItem>
-                                                <MenuItem value='clips'>Clips</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
 
                                     <Grid item sm={11} lg={7} xs={11}>
                                         <FormControl style={{width: 200}}>
@@ -226,9 +208,9 @@ function CreatePost() {
                                             label="Premium video?"
                                         />
                                     </Grid>
-                                    <Grid item sm={9} lg={8} xs={9}>
-                                        <Button style={{margin: 10}} onClick={onChangeVideoIds} variant="contained" color="primary">add another video id</Button>
-                                    </Grid>
+                                    {/*<Grid item sm={9} lg={8} xs={9}>*/}
+                                    {/*    <Button style={{margin: 10}} onClick={onChangeVideoIds} variant="contained" color="primary">add another video id</Button>*/}
+                                    {/*</Grid>*/}
 
                                     <Grid item sm={9} lg={8} xs={9}>
                                         <Button style={{margin: 10}} type="submit" variant="contained" color="primary">Create</Button>

@@ -38,7 +38,7 @@ function CreateClips() {
     const [formData, setFormData] = useState({
         videoId: '',
         premium: false,
-        cdn: ''
+        cdn: 'aws'
     });
 
     const [disableButton, setDisableButton] = useState(false)
@@ -63,7 +63,7 @@ function CreateClips() {
             cdn:cdn,
             timestamp: serverTimestamp()
         }).then(()=>{
-            setFormData({premium: false, videoId: '', cdn: ''})
+            setFormData({premium: false, videoId: '', cdn: 'aws'})
             setDisableButton(false)
         })
 
@@ -80,7 +80,7 @@ function CreateClips() {
                     <Grid item sm={11} lg={7} xs={11}>
                         <Item elevation={4}>
                             <Typography variant="h5" gutterBottom style={{color: 'black', marginTop: 10}}>
-                                Create Post
+                                Create Clip
                             </Typography>
 
                             <form onSubmit={register} style={{marginTop: 10}}>

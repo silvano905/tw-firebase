@@ -92,7 +92,15 @@ const Navbar = () => {
                             <MenuItem onClick={handleMenuClose}>
                                 <Typography variant="h6" gutterBottom>
                                     <Link to='/create' style={{color: 'blue', textDecoration: 'none'}}>
-                                        create
+                                        create post
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
+
+                            <MenuItem onClick={handleMenuClose}>
+                                <Typography variant="h6" gutterBottom>
+                                    <Link to='/create-clips' style={{color: 'blue', textDecoration: 'none'}}>
+                                        create clip
                                     </Link>
                                 </Typography>
                             </MenuItem>

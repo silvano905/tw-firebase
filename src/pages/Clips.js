@@ -124,6 +124,8 @@ function Clips() {
                 x.docs.map(doc => ({ data: doc.data(), id: doc.id }))
             ));
         });
+        //scroll automatically to the bottom
+        window.scrollTo(0, document.body.scrollHeight);
     }, []);
 
     const handlePreviousClick = () => {
@@ -146,7 +148,7 @@ function Clips() {
     if (allPosts && post) {
         return (
             <Box sx={{ position: 'relative', height: '100vh' }}>
-                <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}>
+                <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 40, left: 0 }}>
                     <CardMedia
                         component="video"
                         image={'https://d3sog3sqr61u3b.cloudfront.net/' + post.data.videoId}
