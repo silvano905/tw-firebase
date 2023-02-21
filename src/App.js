@@ -17,6 +17,7 @@ import Testing from "./pages/Testing";
 import PlayVideoById from "./pages/PlayVideoById";
 import TestingCompilations from "./pages/TestingCompilations";
 import Clips from "./pages/Clips";
+import CreateClips from "./pages/CreateClips";
 function App() {
   const userAuth = useSelector(selectUser)
 
@@ -46,6 +47,7 @@ function App() {
             <Route path='/premium' element={<Cart />} />
             <Route path='/tiktok-thots' element={<TestingCompilations />} />
             <Route path='/create' element={<CreatePost />} />
+            <Route path='/create-clips' element={<CreateClips />} />
             <Route path='/create-tumblr' element={<CreateTumblr />} />
             <Route path='/create-pictures' element={<CreatePicture />} />
             <Route path='/login' element={<Login />} />

@@ -36,78 +36,147 @@ const Item = styled(Paper)(({ theme }) => ({
     background: '#fdfffc'
 }));
 
+// function Clips() {
+//     const dispatch = useDispatch()
+//     const allPosts = useSelector(selectPosts)
+//
+//
+//
+//     let location = useLocation()
+//
+//     useEffect(() => {
+//         ReactGA.initialize('G-PH7BM56H1X')
+//         ReactGA.send({ hitType: "pageview", page: location.pathname })
+//         // if(!allPosts){
+//         let p = collection(db, 'clips')
+//         let order = query(p, orderBy(filterPosts, 'desc'), where("section", "==", 'clips'))
+//         const querySnapshot = getDocs(order).then(x=>{
+//             dispatch(getPosts(
+//                 x.docs.map(doc => ({data: doc.data(), id: doc.id}))
+//             ))
+//         })
+//         // }
+//     }, [filterPosts,])
+//
+//
+//     let quinielasList;
+//     if(allPosts&&allPosts.length>0) {
+//         quinielasList = allPosts.slice(0, 10).map(item => {
+//             return (
+//                 <Grid item sm={4} lg={4} xs={12}>
+//                     <Card sx={{ display: 'flex', margin: 5 }}>
+//                         <CardMedia
+//                             component="video"
+//                             image={'https://d3sog3sqr61u3b.cloudfront.net/'+item.data.videoId}
+//                             title="tiktok thots"
+//                             controls
+//                         />
+//                     </Card>
+//                 </Grid>
+//             )
+//         })
+//
+//     }
+//
+//     if(allPosts){
+//         return (
+//             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+//
+//                 <Grid item sm={4} lg={12} xs={11}>
+//                     <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+//                         {quinielasList}
+//                     </Grid>
+//                 </Grid>
+//
+//
+//             </Grid>
+//         );
+//     }else {
+//         return (
+//             <Spinner/>
+//         )
+//     }
+//
+//
+//
+// }
+//
+// export default Clips;
+
+
 function Clips() {
-    const dispatch = useDispatch()
-    const allPosts = useSelector(selectPosts)
-    const allUnwatchedCompilations = useSelector(selectUnwatched)
-    const currentUser = useSelector(selectUser)
-    const userData = useSelector(selectUserData)
-    const lastCompilationPlayedId = useSelector(selectLastCompilationPlayedId)
+    const dispatch = useDispatch();
+    const allPosts = useSelector(selectPosts);
+    const [currentPost, setCurrentPost] = useState(0);
 
-
-    const [visible, setVisible] = useState(2)
-
-    const [filterPosts, setFilterPosts] = useState('timestamp')
-    const enterTriggered = useRef(false);
-
-
-    let location = useLocation()
+    let location = useLocation();
 
     useEffect(() => {
-        ReactGA.initialize('G-PH7BM56H1X')
-        ReactGA.send({ hitType: "pageview", page: location.pathname })
-        // if(!allPosts){
-        let p = collection(db, 'posts')
-        let order = query(p, orderBy(filterPosts, 'desc'), where("section", "==", 'single'))
-        const querySnapshot = getDocs(order).then(x=>{
+        ReactGA.initialize('G-PH7BM56H1X');
+        ReactGA.send({ hitType: "pageview", page: location.pathname });
+
+        let p = collection(db, 'clips');
+        let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'clips'));
+        const querySnapshot = getDocs(order).then(x => {
             dispatch(getPosts(
-                x.docs.map(doc => ({data: doc.data(), id: doc.id}))
-            ))
-        })
-        // }
-    }, [filterPosts,])
+                x.docs.map(doc => ({ data: doc.data(), id: doc.id }))
+            ));
+        });
+    }, []);
 
+    useEffect(() => {
+        const debounce = (fn, delay) => {
+            let timer = null;
+            return (...args) => {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fn(...args);
+                }, delay);
+            };
+        };
 
-    let quinielasList;
-    if(allPosts&&allPosts.length>0) {
-        quinielasList = allPosts.slice(0, 10).map(item => {
-            return (
-                <Grid item sm={4} lg={4} xs={12}>
-                    <Card sx={{ display: 'flex', margin: 5 }}>
-                        <CardMedia
-                            component="video"
-                            image={'https://d3sog3sqr61u3b.cloudfront.net/'+item.data.videoId}
-                            title="tiktok thots"
-                            controls
-                        />
-                    </Card>
-                </Grid>
-            )
-        })
+        const handleScroll = debounce((event) => {
+            const delta = Math.sign(event.deltaY);
+            setCurrentPost((prev) => {
+                const nextPost = prev + delta;
+                if (nextPost < 0) {
+                    return 0;
+                } else if (nextPost >= allPosts.length) {
+                    return allPosts.length - 1;
+                } else {
+                    return nextPost;
+                }
+            });
+        }, 100);
 
-    }
+        window.addEventListener('wheel', handleScroll);
 
-    if(allPosts){
+        return () => {
+            window.removeEventListener('wheel', handleScroll);
+        };
+    }, [allPosts.length]);
+
+    const post = allPosts && allPosts[currentPost];
+
+    if (allPosts && post) {
         return (
-            <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-
-                <Grid item sm={4} lg={12} xs={11}>
-                    <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-                        {quinielasList}
-                    </Grid>
-                </Grid>
-
-
-            </Grid>
+                <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 60, left: 0 }}>
+                    <CardMedia
+                        component="video"
+                        image={'https://d3sog3sqr61u3b.cloudfront.net/' + post.data.videoId}
+                        title="tiktok thots"
+                        controls
+                        autoPlay
+                        sx={{ width: '100%', height: '100%' }}
+                        onEnded={() => setCurrentPost((prev) => (prev + 1) % allPosts.length)}
+                    />
+                </Card>
         );
-    }else {
+    } else {
         return (
-            <Spinner/>
-        )
+            <Spinner />
+        );
     }
-
-
-
 }
 
 export default Clips;
