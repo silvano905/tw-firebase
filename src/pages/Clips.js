@@ -153,7 +153,6 @@ function Clips() {
                         title="tiktok thots"
                         controls
                         autoPlay
-                        muted
                         onEnded={handleNextClick}
                         sx={{ width: '100%', height: '100%' }}
                     />
