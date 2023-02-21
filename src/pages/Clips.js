@@ -155,6 +155,7 @@ function Clips() {
                         title="tiktok thots"
                         controls
                         autoPlay
+                        controlsList="nodownload"
                         onEnded={handleNextClick}
                         sx={{ width: '100%', height: '100%' }}
                     />
