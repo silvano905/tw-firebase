@@ -12,6 +12,7 @@ import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
 import Grid from "@mui/material/Grid";
 import {useDispatch, useSelector} from "react-redux";
+import Box from '@mui/material/Box';
 import {selectUser, selectUserData} from "../redux/user/userSlice";
 import {styled} from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
@@ -27,6 +28,7 @@ import {
 } from "../redux/compilations/compilationsSlice";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
+import {getClip, getClips, selectClips} from "../redux/clips/clipsSlice";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -106,7 +108,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function Clips() {
     const dispatch = useDispatch();
-    const allPosts = useSelector(selectPosts);
+    const allPosts = useSelector(selectClips);
     const [currentPost, setCurrentPost] = useState(0);
 
     let location = useLocation();
@@ -118,59 +120,54 @@ function Clips() {
         let p = collection(db, 'clips');
         let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'clips'));
         const querySnapshot = getDocs(order).then(x => {
-            dispatch(getPosts(
+            dispatch(getClips(
                 x.docs.map(doc => ({ data: doc.data(), id: doc.id }))
             ));
         });
     }, []);
 
-    useEffect(() => {
-        const debounce = (fn, delay) => {
-            let timer = null;
-            return (...args) => {
-                clearTimeout(timer);
-                timer = setTimeout(() => {
-                    fn(...args);
-                }, delay);
-            };
-        };
+    const handlePreviousClick = () => {
+        setCurrentPost((prev) => {
+            const previousPost = prev - 1;
+            if (previousPost < 0) {
+                return allPosts.length - 1;
+            } else {
+                return previousPost;
+            }
+        });
+    };
 
-        const handleScroll = debounce((event) => {
-            const delta = Math.sign(event.deltaY);
-            setCurrentPost((prev) => {
-                const nextPost = prev + delta;
-                if (nextPost < 0) {
-                    return 0;
-                } else if (nextPost >= allPosts.length) {
-                    return allPosts.length - 1;
-                } else {
-                    return nextPost;
-                }
-            });
-        }, 100);
-
-        window.addEventListener('wheel', handleScroll);
-
-        return () => {
-            window.removeEventListener('wheel', handleScroll);
-        };
-    }, [allPosts.length]);
+    const handleNextClick = () => {
+        setCurrentPost((prev) => (prev + 1) % allPosts.length);
+    };
 
     const post = allPosts && allPosts[currentPost];
 
     if (allPosts && post) {
         return (
-                <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 60, left: 0 }}>
+            <Box sx={{ position: 'relative', height: '100vh' }}>
+                <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 0, left: 0 }}>
                     <CardMedia
                         component="video"
                         image={'https://d3sog3sqr61u3b.cloudfront.net/' + post.data.videoId}
                         title="tiktok thots"
                         controls
                         autoPlay
+                        muted
+                        onEnded={handleNextClick}
                         sx={{ width: '100%', height: '100%' }}
-                        onEnded={() => setCurrentPost((prev) => (prev + 1) % allPosts.length)}
                     />
                 </Card>
+                <Box sx={{ position: 'absolute', bottom: 2, left: '50%', transform: 'translateX(-50%)', display: 'flex' }}>
+                    <Button variant="contained" onClick={handlePreviousClick}>
+                        Previous
+                    </Button>
+                    <Box sx={{ width: 2 }} />
+                    <Button variant="contained" onClick={handleNextClick}>
+                        Next
+                    </Button>
+                </Box>
+            </Box>
         );
     } else {
         return (

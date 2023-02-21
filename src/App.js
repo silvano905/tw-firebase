@@ -45,7 +45,7 @@ function App() {
             <Route path='/clips' element={<Clips />} />
             <Route path='/video/:id' element={<PlayVideoById />} />
             <Route path='/premium' element={<Cart />} />
-            <Route path='/tiktok-thots' element={<TestingCompilations />} />
+            <Route path='/tiktok-thots' element={<Clips />} />
             <Route path='/create' element={<CreatePost />} />
             <Route path='/create-clips' element={<CreateClips />} />
             <Route path='/create-tumblr' element={<CreateTumblr />} />

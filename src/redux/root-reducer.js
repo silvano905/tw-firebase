@@ -8,10 +8,11 @@ import compilationsReducer from '../redux/compilations/compilationsSlice'
 import homeReducer from '../redux/home/homeSlice'
 import tumblrReducer from '../redux/tumblr/tumblrSlice'
 import picturesReducer from '../redux/pictures/picturesSlice'
+import clipsReducer from '../redux/clips/clipsSlice'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user', 'posts', 'compilations', 'home', 'tumblr', 'pictures']
+    whitelist: ['user', 'posts', 'compilations', 'home', 'tumblr', 'pictures', 'clips']
 };
 
 const rootReducer = combineReducers({
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     compilations: compilationsReducer,
     home: homeReducer,
     tumblr: tumblrReducer,
-    pictures: picturesReducer
+    pictures: picturesReducer,
+    clips: clipsReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
