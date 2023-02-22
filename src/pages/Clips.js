@@ -182,7 +182,7 @@ function Clips() {
                         </Button>
                     </Box>
                 </Box>
-                <div id='myElement'></div>
+                <div id='myElement' style={{ height: '1px' }}></div>
 
             </>
 
