@@ -105,7 +105,6 @@ function Testing() {
 
     }
 
-    if(allPosts){
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
                 <Grid item sm={11} lg={10} xs={11}>
@@ -156,11 +155,18 @@ function Testing() {
                 }
 
                 <Grid item sm={11} lg={12} xs={11}>
-                    <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
-                        {quinielasList}
-                    </Grid>
-                    <div ref={pk}></div>
-                    <Waypoint onEnter={handleWaypointEnter} onLeave={handleWaypointLeave}/>
+                    {allPosts?
+                        <>
+                            <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+                                {quinielasList}
+                            </Grid>
+                            <div ref={pk}></div>
+                            <Waypoint onEnter={handleWaypointEnter} onLeave={handleWaypointLeave}/>
+                        </>
+                        :
+                        <Spinner/>
+                    }
+
                 </Grid>
 
                 <Grid item sm={11} lg={7} xs={11} style={{marginBottom: 20}}>
@@ -174,11 +180,6 @@ function Testing() {
 
             </Grid>
         );
-    }else {
-        return (
-            <Spinner/>
-        )
-    }
 
 
 
