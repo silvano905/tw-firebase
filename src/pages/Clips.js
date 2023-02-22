@@ -182,14 +182,18 @@ function Clips() {
                         </Button>
                     </Box>
                 </Box>
-                <div id='myElement' style={{ height: '1px' }}></div>
 
             </>
 
         );
     } else {
         return (
-            <Spinner />
+            <>
+                <Spinner />
+
+                <div id='myElement' style={{ height: '1px' }}></div>
+
+            </>
         );
     }
 }
