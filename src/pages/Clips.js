@@ -134,12 +134,16 @@ function Clips() {
             }
             return array;
         }
-        //scroll automatically to the bottom
-        // window.scrollTo(0, document.body.scrollHeight);
-        document.getElementById('myElement').scrollIntoView({ behavior: 'smooth' });
     }, []);
 
-    const handlePreviousClick = () => {
+    useEffect(() => {
+        if(allPosts){
+            document.getElementById('myElement').scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [allPosts]);
+
+
+        const handlePreviousClick = () => {
         setCurrentPost((prev) => {
             const previousPost = prev - 1;
             if (previousPost < 0) {
@@ -182,18 +186,15 @@ function Clips() {
                         </Button>
                     </Box>
                 </Box>
+                <div id='myElement' style={{ height: '1px' }}></div>
 
             </>
 
         );
     } else {
         return (
-            <>
-                <Spinner />
+            <Spinner />
 
-                <div id='myElement' style={{ height: '1px' }}></div>
-
-            </>
         );
     }
 }
