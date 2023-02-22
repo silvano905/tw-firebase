@@ -120,12 +120,23 @@ function Clips() {
         let p = collection(db, 'clips');
         let order = query(p, orderBy('timestamp', 'desc'), where("section", "==", 'clips'));
         const querySnapshot = getDocs(order).then(x => {
+            // Shuffle the documents
+            const shuffledDocs = shuffle(x.docs);
             dispatch(getClips(
-                x.docs.map(doc => ({ data: doc.data(), id: doc.id }))
+                shuffledDocs.map(doc => ({ data: doc.data(), id: doc.id }))
             ));
         });
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
         //scroll automatically to the bottom
-        window.scrollTo(0, document.body.scrollHeight);
+        // window.scrollTo(0, document.body.scrollHeight);
+        document.getElementById('myElement').scrollIntoView({ behavior: 'smooth' });
     }, []);
 
     const handlePreviousClick = () => {
@@ -147,29 +158,34 @@ function Clips() {
 
     if (allPosts && post) {
         return (
-            <Box sx={{ position: 'relative', height: '100vh' }}>
-                <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 40, left: 0 }}>
-                    <CardMedia
-                        component="video"
-                        image={'https://d3sog3sqr61u3b.cloudfront.net/' + post.data.videoId}
-                        title="tiktok thots"
-                        controls
-                        autoPlay
-                        controlsList="nodownload"
-                        onEnded={handleNextClick}
-                        sx={{ width: '100%', height: '100%' }}
-                    />
-                </Card>
-                <Box sx={{ position: 'absolute', bottom: 2, left: '50%', transform: 'translateX(-50%)', display: 'flex' }}>
-                    <Button variant="contained" onClick={handlePreviousClick}>
-                        Previous
-                    </Button>
-                    <Box sx={{ width: 2 }} />
-                    <Button variant="contained" onClick={handleNextClick}>
-                        Next
-                    </Button>
+            <>
+                <Box sx={{ position: 'relative', height: '100vh' }}>
+                    <Card sx={{ display: 'flex', margin: 0, position: 'absolute', top: 0, right: 0, bottom: 40, left: 0 }}>
+                        <CardMedia
+                            component="video"
+                            image={'https://d3sog3sqr61u3b.cloudfront.net/' + post.data.videoId}
+                            title="tiktok thots"
+                            controls
+                            autoPlay
+                            controlsList="nodownload"
+                            onEnded={handleNextClick}
+                            sx={{ width: '100%', height: '100%' }}
+                        />
+                    </Card>
+                    <Box sx={{ position: 'absolute', bottom: 2, left: '50%', transform: 'translateX(-50%)', display: 'flex' }}>
+                        <Button variant="contained" onClick={handlePreviousClick}>
+                            Previous
+                        </Button>
+                        <Box sx={{ width: 2 }} />
+                        <Button variant="contained" onClick={handleNextClick}>
+                            Next
+                        </Button>
+                    </Box>
                 </Box>
-            </Box>
+                <div id='myElement'></div>
+
+            </>
+
         );
     } else {
         return (
