@@ -4,7 +4,6 @@ Disallow: /privacy
 Disallow: /about
 Disallow: /login
 Disallow: /register
-Disallow: /tiktok-thots
 Disallow: /account
 
 Allow: /
