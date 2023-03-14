@@ -37,9 +37,6 @@ const Item = styled(Paper)(({ theme }) => ({
 const VideoCompTesting = ({post}) => {
     return (
         <Item elevation={4} key={post.id}>
-            {/*<Typography variant="h6" gutterBottom>*/}
-            {/*    {post.data.title}*/}
-            {/*</Typography>*/}
 
             {post.data.cdn==='cloudflare'?
                 <div style={{position: "relative", overflow: 'hidden', display: "flex", alignItems: "center", justifyContent: "center"}}>
@@ -74,7 +71,7 @@ const VideoCompTesting = ({post}) => {
                             </Link>
                         </div>
                         :
-                        null
+                        <p>nothing</p>
             }
 
 

@@ -37,7 +37,7 @@ function Testing() {
     const lastPostPlayedId = useSelector(selectLastPostPlayedId)
 
 
-    const [visible, setVisible] = useState(2)
+    const [visible, setVisible] = useState(1)
 
     const [filterPosts, setFilterPosts] = useState('timestamp')
     const enterTriggered = useRef(false);
