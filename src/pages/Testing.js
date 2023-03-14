@@ -20,6 +20,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ReactGA from "react-ga4";
 import {removeAlert, setAlert} from "../redux/alerts/alertsSlice";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import Dialog from "@mui/material/Dialog";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -27,6 +33,16 @@ const Item = styled(Paper)(({ theme }) => ({
     marginTop: 15,
     color: theme.palette.text.secondary,
     background: '#fdfffc'
+}));
+
+const ItemTwo = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    marginTop: 15,
+    color: theme.palette.text.secondary,
+    background: '#fdfffc',
+    position: 'relative',
 }));
 
 function Testing() {
@@ -153,6 +169,54 @@ function Testing() {
                         </Button>
                     </div>
                 }
+
+                <Grid item sm={11} lg={12} xs={11}>
+                    <ItemTwo elevation={4}>
+                        <Card sx={{ maxWidth: 450, margin: 'auto' }}>
+                            <CardMedia
+                                component="img"
+                                image={"https://imagedelivery.net/k0yUaL8t05k_eXwwUxAOHw/3da82ea8-2eda-4158-ba5e-a1f51ae3e100/public"}
+                                alt="tiktok teen thots"
+                            />
+                        </Card>
+                        <div style={{ position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'}}>
+                            <Typography variant="h5" gutterBottom style={{
+                                WebkitBackgroundClip: 'text',
+                                marginBottom: -150,
+                                textAlign: 'center',
+                                color: "black",
+                                backgroundColor: 'rgba(255, 255, 255, 0.7)', /* White background with 70% transparency */
+                                padding: '2px 2px 25px 2px', /* Add some padding to the text to create some space between the text and the background */
+                                borderRadius: 5
+                            }}>
+                                scroll down for videos
+                            </Typography>
+                        </div>
+
+                        <div style={{ position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'}}>
+                            <KeyboardDoubleArrowDownIcon fontSize={"large"} color={"primary"} style={{
+                                background: 'linear-gradient(to right, #023e8a, #03045e)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                marginBottom: -180
+                            }}/>
+                        </div>
+                    </ItemTwo>
+                </Grid>
 
                 <Grid item sm={11} lg={12} xs={11}>
                     {allPosts?

@@ -71,7 +71,7 @@ const VideoCompTesting = ({post}) => {
                             </Link>
                         </div>
                         :
-                        <p>nothing</p>
+                        null
             }
 
 
