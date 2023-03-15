@@ -70,6 +70,14 @@ function Testing() {
         enterTriggered.current = false;
     };
 
+
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
+
     let location = useLocation()
 
     useEffect(() => {
@@ -175,46 +183,67 @@ function Testing() {
                         <Card sx={{ maxWidth: 450, margin: 'auto' }}>
                             <CardMedia
                                 component="img"
-                                image={"https://imagedelivery.net/k0yUaL8t05k_eXwwUxAOHw/3da82ea8-2eda-4158-ba5e-a1f51ae3e100/public"}
-                                alt="tiktok teen thots"
+                                image={"/gh.jpg"}
+                                alt="tiktok thots"
+                                onLoad={handleImageLoad}
                             />
                         </Card>
-                        <div style={{ position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'}}>
-                            <Typography variant="h5" gutterBottom style={{
-                                WebkitBackgroundClip: 'text',
-                                marginBottom: -150,
-                                textAlign: 'center',
-                                color: "black",
-                                backgroundColor: 'rgba(255, 255, 255, 0.7)', /* White background with 70% transparency */
-                                padding: '2px 2px 25px 2px', /* Add some padding to the text to create some space between the text and the background */
-                                borderRadius: 5
-                            }}>
-                                scroll down for videos
-                            </Typography>
-                        </div>
+                        {imageLoaded && (
+                            <>
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Typography
+                                        variant="h5"
+                                        gutterBottom
+                                        style={{
+                                            WebkitBackgroundClip: "text",
+                                            marginBottom: -150,
+                                            textAlign: "center",
+                                            color: "black",
+                                            backgroundColor: "rgba(255, 255, 255, 0.7)",
+                                            padding: "2px 2px 25px 2px",
+                                            borderRadius: 5,
+                                        }}
+                                    >
+                                        scroll down for videos
+                                    </Typography>
+                                </div>
 
-                        <div style={{ position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center'}}>
-                            <KeyboardDoubleArrowDownIcon fontSize={"large"} color={"primary"} style={{
-                                background: 'linear-gradient(to right, #023e8a, #03045e)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                                marginBottom: -180
-                            }}/>
-                        </div>
+                                <div
+                                    style={{
+                                        position: "absolute",
+                                        top: 0,
+                                        left: 0,
+                                        width: "100%",
+                                        height: "100%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <KeyboardDoubleArrowDownIcon
+                                        fontSize={"large"}
+                                        color={"primary"}
+                                        style={{
+                                            background: "linear-gradient(to right, #023e8a, #03045e)",
+                                            WebkitBackgroundClip: "text",
+                                            WebkitTextFillColor: "transparent",
+                                            marginBottom: -180,
+                                        }}
+                                    />
+                                </div>
+                            </>
+                        )}
                     </ItemTwo>
                 </Grid>
 
