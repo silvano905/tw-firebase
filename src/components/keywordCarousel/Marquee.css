@@ -1,0 +1,27 @@
+.marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-top: 8px;
+    background-color: #fdfffc;
+    width: 100%;
+}
+
+.marquee-content {
+    display: flex;
+    align-items: center;
+    padding-right: 100%;
+}
+
+.keyword {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.separator {
+    margin: 0 10px;
+    color: #999;
+}

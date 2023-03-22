@@ -5,6 +5,8 @@ import {
     collection,
     query, orderBy, getDocs, where
 } from "firebase/firestore";
+import ImageCarousel from "../components/imageCarousel/ImageCarousel";
+import Marquee from "../components/keywordCarousel/Marquee";
 import {Helmet} from "react-helmet";
 import {getPosts, selectPosts, selectUnwatched, setUnwatchedPosts, selectLastPostPlayedId} from "../redux/posts/postsSlice";
 import { Waypoint } from 'react-waypoint';
@@ -46,6 +48,8 @@ const ItemTwo = styled(Paper)(({ theme }) => ({
 }));
 
 function Testing() {
+    const keywords = ["TikTok Thots", "Instagram Thots", "Triller Thots", "Beautiful Girls", "Teen Thots",
+        "Social Media Thots", "Stunning Beauties"];
     const dispatch = useDispatch()
     const allPosts = useSelector(selectPosts)
     const currentUser = useSelector(selectUser)
@@ -131,34 +135,27 @@ function Testing() {
 
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
+
+                <div>
+                    <ImageCarousel />
+                </div>
+
                 <Grid item sm={11} lg={10} xs={11}>
                     <Item elevation={4}>
-                        <Typography variant="h5" gutterBottom style={{
-                            background: 'linear-gradient(to right, #ff0000, #ffff00)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            marginBottom: -3
-                        }}>
-                            Tiktok Thots
-                        </Typography>
-                        <Typography variant="h5" gutterBottom style={{
-                            background: 'linear-gradient(to right, #9f86c0, #231942)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            marginBottom: -3
-                        }}>
-                            Triller Thots
-                        </Typography>
-                        <Typography variant="h5" gutterBottom style={{
-                            background: 'linear-gradient(to right, #f72585, #231942)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            marginBottom: -3
-                        }}>
-                            Instagram Thots
-                        </Typography>
+
+                    <Typography variant="h6" gutterBottom style={{color: "#495057", marginBottom: -3, marginTop: 7}}>
+                        Discover the world of stunning teen thots, your one-stop destination for TikTok Thots, Instagram Thots, and Triller Thots.
+                        Our carefully curated selection showcases the charm, talent, and allure of these social media thots in enchanting videos.
+                    </Typography>
+                    </Item>
+                </Grid>
+
+                <Marquee keywords={keywords} />
+
+                <Grid item sm={11} lg={10} xs={11}>
+                    <Item elevation={4}>
                         <Typography variant="h6" gutterBottom style={{color: "blue", marginBottom: -3, marginTop: 7}}>
-                            filter posts by:
+                            filter videos by:
                         </Typography>
                         <ButtonGroup size='small'>
                             <Button variant={filterPosts==='timestamp'?'contained':'outlined'} onClick={()=>setFilterPosts('timestamp')}>Newest</Button>
@@ -177,75 +174,6 @@ function Testing() {
                         </Button>
                     </div>
                 }
-
-                <Grid item sm={11} lg={12} xs={11}>
-                    <ItemTwo elevation={4}>
-                        <Card sx={{ maxWidth: 450, margin: 'auto' }}>
-                            <CardMedia
-                                component="img"
-                                image={"/gh.jpg"}
-                                alt="tiktok thots"
-                                onLoad={handleImageLoad}
-                            />
-                        </Card>
-                        {imageLoaded && (
-                            <>
-                                <div
-                                    style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        width: "100%",
-                                        height: "100%",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <Typography
-                                        variant="h5"
-                                        gutterBottom
-                                        style={{
-                                            WebkitBackgroundClip: "text",
-                                            marginBottom: -150,
-                                            textAlign: "center",
-                                            color: "black",
-                                            backgroundColor: "rgba(255, 255, 255, 0.7)",
-                                            padding: "2px 2px 25px 2px",
-                                            borderRadius: 5,
-                                        }}
-                                    >
-                                        scroll down for videos
-                                    </Typography>
-                                </div>
-
-                                <div
-                                    style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        width: "100%",
-                                        height: "100%",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <KeyboardDoubleArrowDownIcon
-                                        fontSize={"large"}
-                                        color={"primary"}
-                                        style={{
-                                            background: "linear-gradient(to right, #023e8a, #03045e)",
-                                            WebkitBackgroundClip: "text",
-                                            WebkitTextFillColor: "transparent",
-                                            marginBottom: -180,
-                                        }}
-                                    />
-                                </div>
-                            </>
-                        )}
-                    </ItemTwo>
-                </Grid>
 
                 <Grid item sm={11} lg={12} xs={11}>
                     {allPosts?
