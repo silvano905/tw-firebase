@@ -143,10 +143,19 @@ function Testing() {
                 <Grid item sm={11} lg={10} xs={11}>
                     <Item elevation={4}>
 
-                    <Typography variant="h6" gutterBottom style={{color: "#495057", marginBottom: -3, marginTop: 7}}>
-                        Discover the world of stunning teen thots, your one-stop destination for TikTok Thots, Instagram Thots, and Triller Thots.
-                        Our carefully curated selection showcases the charm, talent, and allure of these social media thots in enchanting videos.
-                    </Typography>
+                        <Typography variant="h6" gutterBottom style={{color: "#495057", marginBottom: -3, marginTop: 7}}>
+                            Discover the world of stunning teen thots, your one-stop destination for TikTok Thots, Instagram Thots, and Triller Thots.
+                            Our carefully curated selection showcases the charm, talent, and allure of these social media thots in enchanting videos.
+                        </Typography>
+
+                        <Typography variant="body1" gutterBottom style={{color: "#004f9f", marginBottom: -3, marginTop: 7}}>
+                            All content is publicly available on the internet and is not owned by us.
+                        </Typography>
+
+                        <Typography variant="body1" gutterBottom style={{color: "#00478f", marginBottom: -3, marginTop: 7}}>
+                            Only +18 content is allowed.
+                        </Typography>
+
                     </Item>
                 </Grid>
 
