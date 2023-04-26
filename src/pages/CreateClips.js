@@ -53,20 +53,40 @@ function CreateClips() {
 
     const { premium, videoId, cdn } = formData;
 
-    const register = (e) => {
-        e.preventDefault()
-        setDisableButton(true)
-        addDoc(collection(db, "clips"), {
-            videoId: videoId,
-            premium: premium,
-            section: 'clips',
-            cdn:cdn,
-            timestamp: serverTimestamp()
-        }).then(()=>{
-            setFormData({premium: false, videoId: '', cdn: 'aws'})
-            setDisableButton(false)
-        })
+    // const register = (e) => {
+    //     e.preventDefault()
+    //     setDisableButton(true)
+    //     addDoc(collection(db, "clips"), {
+    //         videoId: videoId,
+    //         premium: premium,
+    //         section: 'clips',
+    //         cdn:cdn,
+    //         timestamp: serverTimestamp()
+    //     }).then(()=>{
+    //         setFormData({premium: false, videoId: '', cdn: 'aws'})
+    //         setDisableButton(false)
+    //     })
+    //
+    // }
 
+    const register = (e) => {
+        e.preventDefault();
+        setDisableButton(true);
+        const regex = /[0-9a-f]{32}\.mp4/g;
+        const names = videoId.match(regex);
+        names.forEach(id => {
+            addDoc(collection(db, "clips"), {
+                videoId: id,
+                premium: premium,
+                section: 'clips',
+                cdn: cdn,
+                timestamp: serverTimestamp()
+            })
+                .then(() => console.log(`Video ID ${id} saved to Firebase`))
+                .catch((error) => console.error(`Error saving video ID ${id}:`, error));
+        });
+        setFormData({ premium: false, videoId: '', cdn: 'aws' });
+        setDisableButton(false);
     }
 
     if(!user||user.uid!=='JuWneKYgAFfQGy2ZkGwR0xz45XK2'){
@@ -81,6 +101,11 @@ function CreateClips() {
                         <Item elevation={4}>
                             <Typography variant="h5" gutterBottom style={{color: 'black', marginTop: 10}}>
                                 Create Clip
+                            </Typography>
+                            <Typography variant="h6" gutterBottom style={{color: 'black', marginTop: 10}}>
+                                Copy the entire list from aws and past it here.
+                                Regex will extract just the names of the files and
+                                save it to firebase.
                             </Typography>
 
                             <form onSubmit={register} style={{marginTop: 10}}>
@@ -110,10 +135,9 @@ function CreateClips() {
                                     <Grid item sm={11} lg={7} xs={11}>
                                         <FormControl>
                                             <TextField
-                                                fullWidth
-                                                variant="outlined"
-                                                id="standard-basic"
-                                                label="Video ID"
+                                                multiline
+                                                maxRows={20}
+                                                label="Video IDs"
                                                 name="videoId"
                                                 value={videoId}
                                                 onChange={onChange}
