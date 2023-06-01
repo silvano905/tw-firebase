@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import './carousel.css';
-import Typography from "@mui/material/Typography";
+import { Helmet } from 'react-helmet';
 
 const carouselContent = [
-    { image: '/gh.jpg', text: 'Tiktok Thots' },
-    { image: '/lk.jpg', text: 'Teen Thots' },
-    { image: '/hn.jpg', text: 'Instagram Thots' },
-    { image: '/jk.jpg', text: 'Triller Thots' }
-    // Add more objects with image URLs and text as needed
+    { image: '/gh.jpg', text: 'Tiktok' },
+    { image: '/lk.jpg', text: 'Teen' },
+    { image: '/hn.jpg', text: 'Instagram' },
+    { image: '/jk.jpg', text: 'Triller' }
 ];
 
 const ImageCarousel = () => {
@@ -33,10 +32,13 @@ const ImageCarousel = () => {
 
     return (
         <div className="carousel">
+            <Helmet>
+                <link rel="preload" as="image" href={carouselContent[0].image} />
+            </Helmet>
             <div className="carousel-inner" ref={carouselRef}>
                 {carouselContent.map((content, index) => (
                     <div key={index} className="carousel-item">
-                        <img className="carousel-image" src={content.image} alt={content.text} />
+                        <img className="carousel-image" src={content.image} alt={content.text} loading="lazy" />
                         <h2 className="carousel-text">{content.text}</h2>
                     </div>
                 ))}
