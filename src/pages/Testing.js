@@ -145,20 +145,24 @@ function Testing() {
                     <ImageCarousel onImagesLoaded={() => setCarouselLoaded(true)} />
                 </div>
 
-                <Grid item sm={11} lg={10} xs={11}>
-                    <Item elevation={4}>
-                        <Typography variant="h6" gutterBottom style={{color: "blue", marginBottom: -3, marginTop: 7}}>
-                            filter videos by:
-                        </Typography>
-                        <ButtonGroup size='small'>
-                            <Button variant={filterPosts==='timestamp'?'contained':'outlined'} onClick={()=>setFilterPosts('timestamp')}>Newest</Button>
-                            <Button variant={filterPosts==='likes'?'contained':'outlined'} onClick={()=>setFilterPosts('likes')}>likes</Button>
-                            <Button variant={filterPosts==='repliesCount'?'contained':'outlined'} onClick={()=>setFilterPosts('repliesCount')}>views</Button>
-                        </ButtonGroup>
-                    </Item>
-                </Grid>
+                {imageLoaded&&
+                    <Grid item sm={11} lg={10} xs={11}>
+                        <Item elevation={4}>
+                            <Typography variant="h6" gutterBottom style={{color: "blue", marginBottom: -3, marginTop: 7}}>
+                                filter videos by:
+                            </Typography>
+                            <ButtonGroup size='small'>
+                                <Button variant={filterPosts==='timestamp'?'contained':'outlined'} onClick={()=>setFilterPosts('timestamp')}>Newest</Button>
+                                <Button variant={filterPosts==='likes'?'contained':'outlined'} onClick={()=>setFilterPosts('likes')}>likes</Button>
+                                <Button variant={filterPosts==='repliesCount'?'contained':'outlined'} onClick={()=>setFilterPosts('repliesCount')}>views</Button>
+                            </ButtonGroup>
+                        </Item>
+                    </Grid>
+                }
 
-                {lastPostPlayedId&&
+
+
+                {imageLoaded&&lastPostPlayedId&&
                     <div style={{marginTop: 10}}>
                         <Button size='small' variant='contained' onClick={()=>{
                             scrollToBottom()
