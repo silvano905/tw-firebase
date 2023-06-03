@@ -98,6 +98,7 @@ function Testing() {
         // }
     }, [filterPosts,])
 
+    const [carouselLoaded, setCarouselLoaded] = useState(false);
 
     //to scroll to tha last video played
     const pk = useRef(null)
@@ -136,10 +137,6 @@ function Testing() {
         return (
             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
 
-                <div>
-                    <ImageCarousel />
-                </div>
-
                 <Grid item sm={11} lg={10} xs={11}>
                     <Item elevation={4}>
 
@@ -160,6 +157,10 @@ function Testing() {
                 </Grid>
 
                 <Marquee keywords={keywords} />
+
+                <div>
+                    <ImageCarousel onImagesLoaded={() => setCarouselLoaded(true)} />
+                </div>
 
                 <Grid item sm={11} lg={10} xs={11}>
                     <Item elevation={4}>
@@ -185,7 +186,7 @@ function Testing() {
                 }
 
                 <Grid item sm={11} lg={12} xs={11}>
-                    {allPosts?
+                    {carouselLoaded&&allPosts?
                         <>
                             <Grid container direction="row" justifyContent="space-evenly" alignItems="center">
                                 {quinielasList}

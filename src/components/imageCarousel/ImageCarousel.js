@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './carousel.css';
-import { Helmet } from 'react-helmet';
-import Skeleton from '@mui/material/Skeleton';
+import Typography from "@mui/material/Typography";
 
 const carouselContent = [
-    { image: '/gh.jpg', text: 'Tiktok' },
-    { image: '/lk.jpg', text: 'Teen' },
-    { image: '/hn.jpg', text: 'Instagram' },
-    { image: '/jk.jpg', text: 'Triller' }
+    { image: '/one.webp', text: 'Tiktok' },
+    { image: '/four.webp', text: 'Teen' },
+    { image: '/two.webp', text: 'Instagram' },
+    { image: '/three.webp', text: 'Triller' }
+    // Add more objects with image URLs and text as needed
 ];
 
-const ImageCarousel = () => {
+const ImageCarousel = ({ onImagesLoaded }) => {
     const carouselRef = useRef();
-    const [imagesReady, setImagesReady] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(0);
 
     useEffect(() => {
         let currentIndex = 0;
@@ -27,37 +27,29 @@ const ImageCarousel = () => {
 
         const interval = setInterval(goToNextImage, 3000);
 
-        // Simulating image loading delay
-        setTimeout(() => {
-            setImagesReady(true);
-        }, 2000);
-
         return () => {
             clearInterval(interval);
         };
     }, []);
 
+    useEffect(() => {
+        if (imagesLoaded === carouselContent.length) {
+            onImagesLoaded();
+        }
+    }, [imagesLoaded, onImagesLoaded]);
+
     return (
         <div className="carousel">
-            <Helmet>
-                <link rel="preload" as="image" href={carouselContent[0].image} />
-            </Helmet>
             <div className="carousel-inner" ref={carouselRef}>
                 {carouselContent.map((content, index) => (
                     <div key={index} className="carousel-item">
-                        {imagesReady ? (
-                            <>
-                                <img
-                                    className="carousel-image"
-                                    src={content.image}
-                                    alt={content.text}
-                                    loading="lazy"
-                                />
-                                <h2 className="carousel-text">{content.text}</h2>
-                            </>
-                        ) : (
-                            <Skeleton variant="rectangular" width={400} height={450} />
-                        )}
+                        <img
+                            className="carousel-image"
+                            src={content.image}
+                            alt={content.text}
+                            onLoad={() => setImagesLoaded(prev => prev + 1)}
+                        />
+                        <h2 className="carousel-text">{content.text}</h2>
                     </div>
                 ))}
             </div>
@@ -66,4 +58,3 @@ const ImageCarousel = () => {
 };
 
 export default ImageCarousel;
-
