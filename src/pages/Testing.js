@@ -7,8 +7,7 @@ import {
 } from "firebase/firestore";
 import ImageCarousel from "../components/imageCarousel/ImageCarousel";
 import Marquee from "../components/keywordCarousel/Marquee";
-import {Helmet} from "react-helmet";
-import {getPosts, selectPosts, selectUnwatched, setUnwatchedPosts, selectLastPostPlayedId} from "../redux/posts/postsSlice";
+import {getPosts, selectPosts, selectLastPostPlayedId} from "../redux/posts/postsSlice";
 import { Waypoint } from 'react-waypoint';
 import {db} from '../config-firebase/firebase'
 import Spinner from "../components/spinner/Spinner";
@@ -21,13 +20,6 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ReactGA from "react-ga4";
-import {removeAlert, setAlert} from "../redux/alerts/alertsSlice";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -37,15 +29,6 @@ const Item = styled(Paper)(({ theme }) => ({
     background: '#fdfffc'
 }));
 
-const ItemTwo = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    marginTop: 15,
-    color: theme.palette.text.secondary,
-    background: '#fdfffc',
-    position: 'relative',
-}));
 
 function Testing() {
     const keywords = ["TikTok Thots", "Instagram Thots", "Triller Thots", "Beautiful Girls", "Teen Thots",
